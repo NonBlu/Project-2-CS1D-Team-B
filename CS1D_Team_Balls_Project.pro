@@ -1,4 +1,5 @@
-QT       += core gui
+QT += core gui
+QT += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,7 +17,9 @@ SOURCES += \
     mainwindow.cpp \
     recieptview.cpp \
     souvenirshop.cpp \
-    tourpage.cpp
+    tourpage.cpp \
+    mlb.cpp \
+    stadiummanager.cpp
 
 HEADERS += \
     adminlogin.h \
@@ -25,7 +28,12 @@ HEADERS += \
     mainwindow.h \
     recieptview.h \
     souvenirshop.h \
-    tourpage.h
+    tourpage.h \
+    Containers/Graph.h \
+    Containers/Map.h \
+    Containers/Vector.h \
+    mlb.h \
+    stadiummanager.h
 
 FORMS += \
     adminlogin.ui \
