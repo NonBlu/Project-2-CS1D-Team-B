@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-//#include "stadiummanager.h"
+#include "stadiummanager.h"
 
 #include <QApplication>
 
@@ -9,11 +9,11 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-//    StadiumManager sm;
+    StadiumManager sm;
 
-//    sm.printEntrys();
-//    sm.printSouvenirs();
-//    sm.printGraph();
+    sm.printEntrys();
+    sm.printSouvenirs();
+    sm.printGraph();
 
 
     return a.exec();

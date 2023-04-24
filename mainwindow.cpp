@@ -35,7 +35,7 @@ void MainWindow::on_viewInfoButton_clicked()
 
 void MainWindow::on_beginButton_clicked()
 {
-    TourPage tourPage;
+    TourPage tourPage(this, sm);
     tourPage.setModal(true);
     tourPage.exec();
 }

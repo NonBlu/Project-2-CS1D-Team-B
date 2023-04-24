@@ -2,13 +2,28 @@
 #include "ui_souvenirshop.h"
 #include <QTableWidget>
 #include <QVBoxLayout>
+#include "qspinbox.h"
 
 SouvenirShop::SouvenirShop(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SouvenirShop)
 {
     ui->setupUi(this);
+}
 
+SouvenirShop::SouvenirShop(QWidget *parent, StadiumManager* sm) :
+    QDialog(parent),
+    ui(new Ui::SouvenirShop),
+    sm { sm }
+{
+    ui->setupUi(this);
+
+//    QObject::connect(ui->)
+}
+
+void SouvenirShop::displaySouvenirs()
+{
+    QSpinBox* quantityBox;
     QTableWidget *tableWidget = new QTableWidget(this);
     tableWidget->setColumnCount(2);
     tableWidget->setHorizontalHeaderLabels({"Item", "Price"});
@@ -24,6 +39,11 @@ SouvenirShop::SouvenirShop(QWidget *parent) :
 
     tableWidget->setRowCount(items.size());
     for (int row = 0; row < items.size(); ++row) {
+        quantityBox = new QSpinBox();
+
+        QObject::connect(quantityBox, &QSpinBox::valueChanged,
+                         this,        &SouvenirShop::purchaseItem);
+
         QTableWidgetItem *item = new QTableWidgetItem(items[row].first);
         tableWidget->setItem(row, 0, item);
         QTableWidgetItem *price = new QTableWidgetItem(QString::number(items[row].second, 'f', 2));
@@ -34,6 +54,14 @@ SouvenirShop::SouvenirShop(QWidget *parent) :
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(tableWidget);
     setLayout(layout);
+}
+
+void SouvenirShop::purchaseItem(int quantity)
+{
+//    QWidget* widget = qobject_cast<QWidget*>(sender());
+//    QString stadiumName = "Test Stadium";
+//    QString souvenirName = ui->
+//    int row = ui->tableWidget->indexAt(widget->pos()).row();
 }
 
 SouvenirShop::~SouvenirShop()

@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "stadiummanager.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -24,5 +25,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    StadiumManager* sm;
 };
 #endif // MAINWINDOW_H
