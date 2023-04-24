@@ -1,8 +1,6 @@
 #include "tourpage.h"
-#include "qboxlayout.h"
 #include "qspinbox.h"
 #include "./ui_tourpage.h"
-#include "souvenirshop.h"
 #include "receipt.h"
 #include "ui_souvenirshop.h"
 #include <QDebug>
@@ -49,23 +47,11 @@ void TourPage::displaySouvenirs()
     QTableWidgetItem* souvenirItem;
     QTableWidgetItem* priceItem;
     QSpinBox* quantityBox;
-//    QTableWidget *tableWidget = new QTableWidget(this);
-//    tableWidget->setColumnCount(2);
-//    tableWidget->setHorizontalHeaderLabels({"Item", "Price"});
 
     QString stadiumName = "Test Stadium";
 
     ui->souvenirTable->clearContents();
     ui->souvenirTable->setRowCount(0);
-
-    // Add the items to the table
-//    QList<QPair<QString, double>> items = {
-//        {"Baseball cap", 19.99},
-//        {"Baseball bat", 89.39},
-//        {"Team pennant", 17.99},
-//        {"Autographed baseball", 29.99},
-//        {"Team jersey", 199.99}
-//};
 
     struct Souvenir
     {
@@ -97,17 +83,9 @@ void TourPage::displaySouvenirs()
     {
         ui->souvenirTable->insertRow(row);
 
-        qDebug() << "Item: " << souvenirs[row].item << Qt::endl;
-        qDebug() << "Price: " << souvenirs[row].price << Qt::endl;
-        qDebug() << "Row: " << row << Qt::endl;
-
         souvenirItem = new QTableWidgetItem(souvenirs[row].item);
         priceItem    = new QTableWidgetItem(QString::number(souvenirs[row].price));
         quantityBox  = new QSpinBox();
-
-        qDebug() << "Item: " << souvenirItem << Qt::endl;
-        qDebug() << "Price: " << priceItem << Qt::endl;
-        qDebug() << "Row: " << row << Qt::endl;
 
         QObject::connect(quantityBox, &QSpinBox::valueChanged,
                          this,        &TourPage::purchaseItem);
@@ -120,22 +98,7 @@ void TourPage::displaySouvenirs()
         ui->souvenirTable->setItem(row, 0, souvenirItem);
         ui->souvenirTable->setItem(row, 1, priceItem);
         ui->souvenirTable->setCellWidget(row, 2, quantityBox);
-
-
-
-//        QObject::connect(quantityBox, &QSpinBox::valueChanged,
-//                         this,        &SouvenirShop::purchaseItem);
-
-//        QTableWidgetItem *item = new QTableWidgetItem(items[row].first);
-//        tableWidget->setItem(row, 0, item);
-//        QTableWidgetItem *price = new QTableWidgetItem(QString::number(items[row].second, 'f', 2));
-//        tableWidget->setItem(row, 1, price);
     }
-
-    // Add the table widget to the layout
-//    QVBoxLayout *layout = new QVBoxLayout();
-//    layout->addWidget(tableWidget);
-//    setLayout(layout);
 }
 
 void TourPage::showReceipt()
@@ -156,18 +119,4 @@ void TourPage::purchaseItem(int quantity)
 
     receipt.addPurchase({stadiumName, souvenirName, price, quantity} );
 }
-
-//void TourPage::on_souvenirButton_clicked()
-//{
-//    SouvenirShop souvPage;
-//    souvPage.setModal(true);
-//    souvPage.exec();
-//}
-
-//void TourPage::on_recieptButton_clicked()
-//{
-//    Receipt recieptPage;
-//    recieptPage.setModal(true);
-//    recieptPage.exec();
-//}
 
