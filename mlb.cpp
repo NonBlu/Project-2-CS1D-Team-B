@@ -305,3 +305,9 @@ bool MLB::Souvenir::operator!=(const Souvenir& rhs)
 }
 
 
+
+
+Vector<MLB::Souvenir>& MLB::getSouvenirs()
+{
+    return souvenirs;
+}
