@@ -23,6 +23,20 @@ struct Trip
 };
 
 
+template <typename T>
+struct MinTree
+{
+    struct Edge
+    {
+        T orig;
+        T dest;
+    };
+
+    list<Edge> edges;
+    int        totalDistance;
+
+    MinTree() : edges { }, totalDistance { } { }
+};
 
 
 template <typename T1, typename T2>
@@ -276,8 +290,10 @@ Trip<T1>Graph<T1, T2>::BFS(const T1& startVertex)
 
 
 template <class T1, class T2>
-void Graph<T1, T2>::prims(const T1 &startVertex)
+MinTree<T1> Graph<T1, T2>::prims(const T1& startVertex)
 {
+    MinTree<T1> tree;
+
     int vertex { _find(startVertex) };
 
     if (vertex != -1)
@@ -285,10 +301,8 @@ void Graph<T1, T2>::prims(const T1 &startVertex)
         auto comp = [] (const Edge& a, const Edge& b) { return b.weight < a.weight; };
         priority_queue<Edge, vector<Edge>, decltype( comp )> priorityQ(comp);
 
-        list<Edge>   mstEdges;
         Edge         minEdge          { };
         unsigned int visitedVertices  { };
-        unsigned int totalDistance    { };
         unsigned int count            { };
 
         priorityQ.push(Edge { vertex, vertex, 0 });
@@ -301,13 +315,14 @@ void Graph<T1, T2>::prims(const T1 &startVertex)
 
             if (!(visitedVertices & (1 << minEdge.destV)))
             {
-                mstEdges.push_back(minEdge);
+                tree.edges.push_back({ vertices[minEdge.origV].value,
+                                       vertices[minEdge.destV].value});
 
                 visitedVertices |= 1 << minEdge.destV;
 
                 ++count;
 
-                totalDistance += minEdge.weight;
+                tree.totalDistance += minEdge.weight;
             }
 
             for (auto& edge : vertices[minEdge.destV].edges)
@@ -319,12 +334,15 @@ void Graph<T1, T2>::prims(const T1 &startVertex)
             }
         }
 
-        mstEdges.pop_front();
-
-    //  return edges & totalDistance...
+        tree.edges.pop_front();
     }
-}
+    else
+    {
+        qDebug() << "Invalid start Vertex for Prim's Algorithm";
+    }
 
+    return tree;
+}
 
 
 template <class T1, class T2>
