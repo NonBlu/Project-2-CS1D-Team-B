@@ -142,6 +142,12 @@ MLB* StadiumManager::getTeam(const QString& teamName)
 }
 
 
+MinTree<QString> StadiumManager::MST(const QString& origin)
+{
+    return graph.prims(origin);
+}
+
+
 Trip<MLB*> StadiumManager::DFS(const QString& start)
 {
     Trip<MLB*> trip;
