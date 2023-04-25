@@ -3,10 +3,9 @@
 #include <QtSql>
 
 
-
 StadiumManager::StadiumManager()
 {
-    setDB("/Users/natasha/repos/CS1D/Project-2-CS1D-Team-B/Balls.db");
+    setDB("/Volumes/USB1/Project/Balls.db");
 
     readDB();
 }
@@ -17,7 +16,6 @@ void StadiumManager::setDB(const QString& fileName)
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(fileName);
 }
-
 
 
 void StadiumManager::readDB()
@@ -40,7 +38,6 @@ void StadiumManager::readDB()
 
     db.close();
 }
-
 
 
 void StadiumManager::parseMLBTable(QSqlQuery& query)
@@ -86,8 +83,6 @@ void StadiumManager::parseSouvenirTable(QSqlQuery& query)
 
     query.clear();
 }
-
-
 
 
 void StadiumManager::parseDistanceTable(QSqlQuery& query)
@@ -145,6 +140,68 @@ MLB* StadiumManager::getTeam(const QString& teamName)
 
     return mlb;
 }
+
+
+MinTree<QString> StadiumManager::MST(const QString& origin)
+{
+    return graph.prims(origin);
+}
+
+
+Trip<MLB*> StadiumManager::DFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dfs { graph.DFS(start) };
+
+    for (auto& vertex : dfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::BFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> bfs { graph.BFS(start) };
+
+    for (auto& vertex : bfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = bfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::shortestPath(const QString& start, const QString& end)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dijkstras { graph.Dijkstras(start, end) };
+
+    for (auto& vertex : dijkstras.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dijkstras.distanceTraveled;
+
+    return trip;
+}
+
+
+
+
+
 
 
 

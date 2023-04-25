@@ -51,6 +51,34 @@ class MLB
   public:
 
     friend class StadiumManager;
+
+    struct Souvenir
+    {
+        /**
+         * @brief overloaded asignment operator.
+         * @details for handling being set to 0.
+         * @return A souvenir with values set to "" & 0.
+         */
+        Souvenir& operator=(int);
+
+        /**
+         * @brief Overloaded equality operator.
+         * @param [in] rhs Reference to another Souvenir.
+         * @return True if the names match, false otherwise.
+         */
+        bool operator==(const Souvenir& rhs);
+
+        /**
+         * @brief overloaded inequality operator.
+         * @param [in] rhs Reference to another souvenir.
+         * @return True if the name is not equal, false otherwise.
+         */
+        bool operator!=(const Souvenir& rhs);
+
+        QString name;   /**< Name of the souvenir  */
+        float   price;  /**< Price of the souvenir */
+    };
+
     /**
      * @brief Defalt constructor
      * @param [in] team Name of the team
@@ -248,34 +276,10 @@ class MLB
     QString getRoofType() const;
 
 
+    Vector<Souvenir>& getSouvenirs();
+
+
  private:
-    struct Souvenir
-    {
-        /**
-         * @brief overloaded asignment operator.
-         * @details for handling being set to 0.
-         * @return A souvenir with values set to "" & 0.
-         */
-        Souvenir& operator=(int);
-
-        /**
-         * @brief Overloaded equality operator.
-         * @param [in] rhs Reference to another Souvenir.
-         * @return True if the names match, false otherwise.
-         */
-        bool operator==(const Souvenir& rhs);
-
-        /**
-         * @brief overloaded inequality operator.
-         * @param [in] rhs Reference to another souvenir.
-         * @return True if the name is not equal, false otherwise.
-         */
-        bool operator!=(const Souvenir& rhs);
-
-        QString name;   /**< Name of the souvenir  */
-        float   price;  /**< Price of the souvenir */
-    };
-
     QString  teamName;         /**< Name of the teams             */
     QString  stadiumName;      /**< Name of the stadium           */
     QString  location;         /**< Location of the stadium       */
