@@ -3,7 +3,6 @@
 #include <QtSql>
 
 
-
 StadiumManager::StadiumManager()
 {
     setDB("/Volumes/USB1/Project/Balls.db");
@@ -17,7 +16,6 @@ void StadiumManager::setDB(const QString& fileName)
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(fileName);
 }
-
 
 
 void StadiumManager::readDB()
@@ -40,7 +38,6 @@ void StadiumManager::readDB()
 
     db.close();
 }
-
 
 
 void StadiumManager::parseMLBTable(QSqlQuery& query)
@@ -88,8 +85,6 @@ void StadiumManager::parseSouvenirTable(QSqlQuery& query)
 }
 
 
-
-
 void StadiumManager::parseDistanceTable(QSqlQuery& query)
 {
     QString origStadium;
@@ -123,10 +118,80 @@ void StadiumManager::parseDistanceTable(QSqlQuery& query)
 
 
 
-MLB& StadiumManager::getStadium(const QString& stadiumName)
+MLB* StadiumManager::getStadium(const QString& stadiumName)
 {
-    return *map.find(stadiumName);
+    return &(*map.find(stadiumName));
 }
+
+
+MLB* StadiumManager::getTeam(const QString& teamName)
+{
+    MLB* mlb { nullptr };
+
+    for (auto& entry : map)
+    {
+        if (entry.getTeamName() == teamName)
+        {
+            mlb = &entry;
+
+            break;
+        }
+    }
+
+    return mlb;
+}
+
+
+Trip<MLB*> StadiumManager::DFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dfs { graph.DFS(start) };
+
+    for (auto& vertex : dfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::BFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> bfs { graph.BFS(start) };
+
+    for (auto& vertex : bfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = bfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::shortestPath(const QString& start, const QString& end)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dijkstras { graph.Dijkstras(start, end) };
+
+    for (auto& vertex : dijkstras.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dijkstras.distanceTraveled;
+
+    return trip;
+}
+
 
 
 
