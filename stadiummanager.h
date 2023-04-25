@@ -11,10 +11,20 @@ using Iterator = Map<QString, MLB>::Iterator;
 class StadiumManager
 {
   public:
+
+    using Map   = Map<QString, MLB>;
+    using Graph = Graph<QString, int>;
+
     StadiumManager();
 
-    MLB& getStadium(const QString& stadiumName);
+    // mark the copy/move constructors and assignment operators as deleted
 
+    MLB* getStadium(const QString& stadiumName);
+    MLB* getTeam(const QString& teamName);
+
+    Trip<MLB*> DFS(const QString& start);
+    Trip<MLB*> BFS(const QString& start);
+    Trip<MLB*> shortestPath(const QString& start, const QString& end);
 
     // For Testing:
     void printEntrys();
@@ -29,7 +39,10 @@ class StadiumManager
     void parseSouvenirTable(QSqlQuery& query);
     void parseDistanceTable(QSqlQuery& query);
 
-    QSqlDatabase        db;
-    Map  <QString, MLB> map;
-    Graph<QString, int> graph;
+    static int distance;
+
+    QSqlDatabase  db;
+    Map           map;
+    Graph         graph;
 };
+
