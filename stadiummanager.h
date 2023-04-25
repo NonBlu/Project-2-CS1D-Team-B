@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <QSqlDatabase>
@@ -47,4 +48,3 @@ class StadiumManager
     Map           map;
     Graph         graph;
 };
-
