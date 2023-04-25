@@ -69,7 +69,7 @@ class Graph
     Trip<T1> BFS(const T1& startVertex);
     Trip<T1> Dijkstras(const T1& startVertex, const T1& destVertex);
 
-    void prims(const T1& startVertex);
+    MinTree<T1> prims(const T1& startVertex);
 
     void printGraph();
     bool hasVertex(const T1& value);
