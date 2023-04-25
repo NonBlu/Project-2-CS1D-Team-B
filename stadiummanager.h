@@ -33,6 +33,8 @@ class StadiumManager
     void printEntrys();
     void printSouvenirs();
     void printGraph();
+  
+    Map map; // put back to private
 
   private:
     void setDB(const QString& fileName);
@@ -45,6 +47,6 @@ class StadiumManager
     static int distance;
 
     QSqlDatabase  db;
-    Map           map;
+  //  Map           map;
     Graph         graph;
 };
