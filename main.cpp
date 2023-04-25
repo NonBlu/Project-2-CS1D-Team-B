@@ -9,9 +9,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-//    StadiumManager sm;
+//   StadiumManager sm;
 
-//    sm.printEntrys();
+//   sm.printEntrys();
 //    sm.printSouvenirs();
 //    sm.printGraph();
 

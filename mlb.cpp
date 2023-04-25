@@ -227,7 +227,6 @@ QString MLB::getSurface() const
     }
  }
 
-
  void MLB::addSouvenir(const QString& name, float price)
  {
     souvenirs.pushBack(Souvenir { name, price });

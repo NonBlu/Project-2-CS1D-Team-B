@@ -13,7 +13,8 @@ class StadiumManager
   public:
     StadiumManager();
 
-    MLB& getStadium(const QString& stadiumName);
+    MLB* getStadium(const QString& stadiumName);
+    MLB* getTeam(const QString& teamName);
 
 
     // For Testing:
@@ -21,7 +22,7 @@ class StadiumManager
     void printSouvenirs();
     void printGraph();
 
-  private:
+//  private:
     void setDB(const QString& fileName);
     void readDB();
 

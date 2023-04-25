@@ -6,7 +6,7 @@
 
 StadiumManager::StadiumManager()
 {
-    setDB("/Volumes/USB1/Project/Balls.db");
+    setDB("/Users/natasha/repos/CS1D/Project-2-CS1D-Team-B/Balls.db");
 
     readDB();
 }
@@ -123,14 +123,28 @@ void StadiumManager::parseDistanceTable(QSqlQuery& query)
 
 
 
-MLB& StadiumManager::getStadium(const QString& stadiumName)
+MLB* StadiumManager::getStadium(const QString& stadiumName)
 {
-    return *map.find(stadiumName);
+    return &(*map.find(stadiumName));
 }
 
 
+MLB* StadiumManager::getTeam(const QString& teamName)
+{
+    MLB* mlb { nullptr };
 
+    for (auto& entry : map)
+    {
+        if (entry.getTeamName() == teamName)
+        {
+            mlb = &entry;
 
+            break;
+        }
+    }
+
+    return mlb;
+}
 
 
 
