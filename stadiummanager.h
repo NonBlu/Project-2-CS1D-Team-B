@@ -25,6 +25,8 @@ class StadiumManager
     Trip<MLB*> DFS(const QString& start);
     Trip<MLB*> BFS(const QString& start);
     Trip<MLB*> shortestPath(const QString& start, const QString& end);
+  
+    MinTree<QString> MST(const QString& origin);
 
     // For Testing:
     void printEntrys();
