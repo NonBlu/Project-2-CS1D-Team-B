@@ -68,8 +68,9 @@ class Graph
     Trip<T1> DFS(const T1& startVertex);
     Trip<T1> BFS(const T1& startVertex);
     Trip<T1> Dijkstras(const T1& startVertex, const T1& destVertex);
+    MinTree<T1> prims(const T1& startVertex);
 
-    void prims(const T1& startVertex);
+    Trip<T1> closestVertexPath(const vector<T1>& vertexes);
 
     void printGraph();
     bool hasVertex(const T1& value);
@@ -94,7 +95,7 @@ template <class T1, class T2>
 typename Graph<T1, T2>::Vertex*
 Graph<T1, T2>::insertVertex(const T1& value)
 {
-    vertices.push_back(Vertex { value });
+    vertices.push_back(Vertex { value, { } });
 
     ++vertexCount;
 
@@ -110,7 +111,7 @@ Graph<T1, T2>::insertEdge(const T1& v1, const T1& v2, const T2& weight)
     int   destV  {   -1    };
     Edge* edge   { nullptr };
 
-    for (int i {}; i < vertices.size(); ++i)
+    for (unsigned int i {}; i < vertices.size(); ++i)
     {
         if      (vertices[i].value == v1) origV = i;
         else if (vertices[i].value == v2) destV = i;
@@ -151,7 +152,7 @@ int Graph<T1, T2>::_find(const T1& value)
 {
     int v { -1 };
 
-    for (int i {}; i < vertices.size(); ++i)
+    for (unsigned int i {}; i < vertices.size(); ++i)
     {
         if (vertices[i].value == value)
         {
@@ -246,8 +247,6 @@ Trip<T1>Graph<T1, T2>::BFS(const T1& startVertex)
 
         vertexes.push_front(vertex);
 
-        trip.path.push_front(vertices[vertex].value);
-
         visitedVertices |= 1 << vertex;
 
         while (!vertexes.empty())
@@ -256,7 +255,7 @@ Trip<T1>Graph<T1, T2>::BFS(const T1& startVertex)
 
             vertexes.pop_front();
 
-            trip.path.push_front(vertices[vertex].value);
+            trip.path.push_back(vertices[vertex].value);
 
             for (auto& edge : vertices[vertex].edges)
             {
@@ -376,7 +375,7 @@ Trip<T1> Graph<T1, T2>::Dijkstras(const T1& startVertex, const T1& destVertex)
 
             for (auto& edge : vertices[minEdge.destV].edges)
             {
-                if ((minEdge.weight + edge.weight) < costs[edge.destV])  // fix type dif
+                if ((unsigned int)(minEdge.weight + edge.weight) < costs[edge.destV])
                 {
                     costs[edge.destV]   = minEdge.weight + edge.weight;
                     parents[edge.destV] = minEdge.destV;
@@ -385,6 +384,8 @@ Trip<T1> Graph<T1, T2>::Dijkstras(const T1& startVertex, const T1& destVertex)
                 }
             }
         }
+
+        // Collect the desired path from origin -> destination
 
         parent = destV;
 
@@ -406,6 +407,84 @@ Trip<T1> Graph<T1, T2>::Dijkstras(const T1& startVertex, const T1& destVertex)
 
     return trip;
 }
+
+
+
+template <class T1, class T2>
+Trip<T1> Graph<T1, T2>::closestVertexPath(const vector<T1>& vertexes)
+{
+    Trip<T1> trip;
+
+    int vertex { _find(vertexes[0]) };
+
+    auto comp = [] (const Edge& a, const Edge& b) { return b.weight < a.weight; };
+    priority_queue<Edge, vector<Edge>, decltype( comp )> priorityQ(comp);
+
+    vector<unsigned int> costs(vertexCount, 0 - 1);
+    vector<int>          parents(vertexCount);
+    Edge                 minEdge;
+    unsigned int         minCost = 0 - 1;
+    int                  parent;
+
+    costs[vertex]   =  0;
+    parents[vertex] = -1;
+
+    priorityQ.push(Edge { vertex, vertex, 0 });
+
+    while (!priorityQ.empty())
+    {
+        minEdge = priorityQ.top();
+
+        priorityQ.pop();
+
+        for (auto& edge : vertices[minEdge.destV].edges)
+        {
+            if ((unsigned int)(minEdge.weight + edge.weight) < costs[edge.destV])
+            {
+                costs[edge.destV]   = minEdge.weight + edge.weight;
+                parents[edge.destV] = minEdge.destV;
+
+                priorityQ.push(Edge { edge.origV, edge.destV, minEdge.weight + edge.weight });
+            }
+        }
+    }
+
+    // Find path to vertex with minimal cost (from vertexes argument)
+
+    unsigned int index { 1 };
+
+    do
+    {
+        vertex = _find(vertexes[index]);
+
+        if (costs[vertex] < minCost)
+        {
+            minCost = costs[vertex];
+
+            parent = vertex;
+        }
+
+        ++index;
+
+    } while (index < vertexes.size());
+
+    trip.distanceTraveled = costs[parent];
+
+    trip.path.push_front(vertices[parent].value);
+
+    vertex = _find(vertexes[0]);
+
+    while (parent != vertex)
+    {
+        parent = parents[parent];
+
+        trip.path.push_front(vertices[parent].value);
+    }
+
+    return trip;
+}
+
+
 
 
 template <class T1, class T2>
