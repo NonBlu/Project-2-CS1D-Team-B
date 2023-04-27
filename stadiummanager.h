@@ -37,6 +37,8 @@ class StadiumManager
     void printEntrys();
     void printSouvenirs();
     void printGraph();
+  
+    Map map; // put back to private
 
     Map map;  // put back to private
 

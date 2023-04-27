@@ -70,7 +70,11 @@ class Graph
     Trip<T1> Dijkstras(const T1& startVertex, const T1& destVertex);
     MinTree<T1> prims(const T1& startVertex);
 
+//<<<<<<< Trip-Algorithms
     Trip<T1> closestVertexPath(const vector<T1>& vertexes);
+//=======
+    MinTree<T1> prims(const T1& startVertex);
+//>>>>>>> main
 
     void printGraph();
     bool hasVertex(const T1& value);
