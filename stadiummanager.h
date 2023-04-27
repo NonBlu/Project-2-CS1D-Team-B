@@ -38,9 +38,7 @@ class StadiumManager
     void printSouvenirs();
     void printGraph();
   
-    Map map; // put back to private
-
-    Map map;  // put back to private
+    Map map;// put back to private
 
   private:
     void setDB(const QString& fileName);
