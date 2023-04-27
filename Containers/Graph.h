@@ -73,7 +73,6 @@ class Graph
 //<<<<<<< Trip-Algorithms
     Trip<T1> closestVertexPath(const vector<T1>& vertexes);
 //=======
-    MinTree<T1> prims(const T1& startVertex);
 //>>>>>>> main
 
     void printGraph();
