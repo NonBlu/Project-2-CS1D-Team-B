@@ -9,36 +9,91 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
+
     StadiumManager sm;
-    
-    MinTree tree = sm.MST("Marlins Park");
+    Trip<MLB*>     trip;
 
-    for (auto& edge : tree.edges)
-    {
-        qDebug() << edge.orig << "  ->  "
-                 << edge.dest;
-    }
 
-    qDebug() << "Total Distance:  " << tree.totalDistance;
+//  ------- Test #1 - DFS ----------------------------
 
-//     Trip trip = sm.shortestPath("Marlins Park", "Kauffman Stadium");
-// //    Trip trip = sm.DFS("Marlins Park");
-// //    Trip trip = sm.BFS("Marlins Park");
+    trip = sm.DFS("Oracle Park");
 
-//     for (auto& stadium : trip.path)
-//     {
-//         qDebug() << stadium->getStadiumName() << "   "
-//                  << stadium->getLocation();
+//  -------- END: Test #1 ----------------------------
 
-//         for (auto& souvenir : stadium->getSouvenirs())
-//         {
-//             qDebug() << souvenir.name << souvenir.price;
-//         }
 
-//         qDebug () << "\n";
-//     }
 
-//     qDebug() << "Distance Traveled: " << trip.distanceTraveled;
+//  ------- Test #2 - BFS ----------------------------
+
+//    trip = sm.BFS("Target Field");
+
+//  -------- END: Test #2 ----------------------------
+
+
+
+//  ------- Test #3 Shortest Path --------------------
+
+//    trip = sm.shortestPath("Dodger Stadium", "Nationals Park");
+
+//  -------- END: Test #3 ----------------------------
+
+
+
+//  ------- Test #3 Custrom Ordered Trip --------------
+
+//    vector<QString> stadiums;
+
+//    stadiums.push_back("Dodger Stadium");
+//    stadiums.push_back("Coors Field");
+//    stadiums.push_back("Nationals Park");
+//    stadiums.push_back("Marlins Park");
+
+//    trip = sm.customOrderTrip(stadiums);
+
+
+//  -------- END: Test #3 ----------------------------
+
+
+
+
+//   --------- Test #5 - Custom Trip (Recursive) ------------------
+
+//    vector<QString> stadiums;
+
+//    stadiums.push_back("Marlins Park");
+//    stadiums.push_back("Oracle Park");
+//    stadiums.push_back("PNC Park");
+//    stadiums.push_back("Target Field");
+
+//    trip = sm.customTrip(stadiums);
+
+// ----------------- END: Test #5 ---------------------------------
+
+
+
+     // Return from trips:
+
+     for (auto& stadium : trip.path)
+     {
+         qDebug() << stadium->getStadiumName();
+
+     }
+
+     qDebug() << "\nDistance Traveled: " << trip.distanceTraveled;
+
+
+
+//    Minimal Spanning Tree:
+
+//    MinTree tree = sm.MST("Marlins Park");
+
+//    for (auto& edge : tree.edges)
+//    {
+//        qDebug() << edge.orig << "  ->  "
+//                 << edge.dest;
+//    }
+
+//    qDebug() << "\nTotal Distance:  " << tree.totalDistance;
+
 
 
     w.show();

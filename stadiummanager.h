@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <QSqlDatabase>
@@ -20,14 +19,19 @@ class StadiumManager
 
     // mark the copy/move constructors and assignment operators as deleted
 
+    Map& getStadiums();
+
     MLB* getStadium(const QString& stadiumName);
     MLB* getTeam(const QString& teamName);
+
+    MinTree<QString> MST(const QString& origin);
 
     Trip<MLB*> DFS(const QString& start);
     Trip<MLB*> BFS(const QString& start);
     Trip<MLB*> shortestPath(const QString& start, const QString& end);
+    Trip<MLB*> customTrip(vector<QString>& stadiums);
+    Trip<MLB*> customOrderTrip(const vector<QString>& stadiums);
   
-    MinTree<QString> MST(const QString& origin);
 
     // For Testing:
     void printEntrys();
@@ -36,6 +40,8 @@ class StadiumManager
   
     Map map; // put back to private
 
+    Map map;  // put back to private
+
   private:
     void setDB(const QString& fileName);
     void readDB();
@@ -43,6 +49,9 @@ class StadiumManager
     void parseMLBTable(QSqlQuery& query);
     void parseSouvenirTable(QSqlQuery& query);
     void parseDistanceTable(QSqlQuery& query);
+
+    // Recursive calls for custom trip
+    void _customTrip(vector<QString>& stadiums, Trip<QString>& shortestPath, int count = 0);
 
     static int distance;
 
