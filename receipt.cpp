@@ -57,7 +57,6 @@ void Receipt::setupReceipt()
     grandTotalLabel->setStyleSheet("QLabel { font-size: 16pt; }");
 }
 
-
 void Receipt::displayPurchases()
 {
     QTableWidgetItem* stadiumItem    { };
@@ -149,6 +148,10 @@ void Receipt::displayPurchases()
 
         stadiumName = purchase.stadiumName;
 
+        if(table->item(row, 0)->text().isEmpty()) {
+
+        }
+
         ++row;
         ++count;
 
@@ -172,12 +175,146 @@ void Receipt::displayPurchases()
             table->setItem(row, 2, priceItem   );
             table->setItem(row, 3, quantityItem);
         }
+
     }
+    for (int i = table->rowCount() - 1; i >= 0; i--)
+    {
+        QTableWidgetItem* item = table->item(i, 3); // get the quantity item in the row
+        if (item && item->text().toInt() <= 0)     // check if quantity is zero or less
+        {
+            table->removeRow(i);                   // delete the row
+        }
+    }
+
+//    if(table->item(row, 0)->text().isEmpty()) {
+//        table->setItem(row, 0, stadiumItem  );
+//    }
 
     grandTotal = calculateGrandTotal();
 
     label->setText("Grand Total:  $ " + QString::number(grandTotal));
 }
+
+//void Receipt::displayPurchases()
+//{
+//    QTableWidgetItem* stadiumItem    { };
+//    QTableWidgetItem* souvenirItem  { };
+//    QTableWidgetItem* priceItem     { };
+//    QTableWidgetItem* quantityItem  { };
+
+//    QString stadiumName { };
+
+//    int   row           { };
+//    int   count         { };
+//    float purchaseTotal { };
+//    float grandTotal    { };
+
+//    QFont font = QFont();
+
+//    QTableWidget* table = qobject_cast<QTableWidget*>(childAt(20,  50));
+//    QLabel*       label = qobject_cast<QLabel*>      (childAt(50, 350));
+
+//    table->clearContents();
+//    table->setRowCount(0);
+
+//    font.setWeight(QFont::Bold);
+
+//    for (auto& purchase : purchases)
+//    {
+//        if (!row)
+//        {
+//            stadiumItem   = new QTableWidgetItem(purchase.stadiumName);
+//            souvenirItem = new QTableWidgetItem(purchase.souvenirName);
+//            priceItem    = new QTableWidgetItem("$ " + QString::number(purchase.price));
+//            quantityItem = new QTableWidgetItem(QString::number(purchase.quantity));
+//        }
+//        else if (stadiumName == purchase.stadiumName)
+//        {
+//            stadiumItem   = new QTableWidgetItem(" ");
+//            souvenirItem = new QTableWidgetItem(purchase.souvenirName);
+//            priceItem    = new QTableWidgetItem("$ " + QString::number(purchase.price));
+//            quantityItem = new QTableWidgetItem(QString::number(purchase.quantity));
+//        }
+//        else
+//        {
+//            purchaseTotal = calculatePurchaseTotal(stadiumName);
+
+//            stadiumItem   = new QTableWidgetItem(" ");
+//            souvenirItem = new QTableWidgetItem(" Total: ");
+//            priceItem    = new QTableWidgetItem("$ " + QString::number(purchaseTotal));
+//            quantityItem = new QTableWidgetItem(" ");
+
+//            souvenirItem->setFont(font);
+//            priceItem->setFont(font);
+//            priceItem->setForeground(Qt::darkRed);
+
+//            table->insertRow(row);
+
+//            table->setItem(row, 0, stadiumItem  );
+//            table->setItem(row, 1, souvenirItem);
+//            table->setItem(row, 2, priceItem   );
+//            table->setItem(row, 3, quantityItem);
+
+//            ++row;
+
+//            stadiumItem   = new QTableWidgetItem(" ");
+//            souvenirItem = new QTableWidgetItem(" ");
+//            priceItem    = new QTableWidgetItem(" ");
+//            quantityItem = new QTableWidgetItem(" ");
+
+//            table->insertRow(row);
+
+//            table->setItem(row, 0, stadiumItem  );
+//            table->setItem(row, 1, souvenirItem);
+//            table->setItem(row, 2, priceItem   );
+//            table->setItem(row, 3, quantityItem);
+
+//            ++row;
+
+//            stadiumItem   = new QTableWidgetItem(purchase.stadiumName);
+//            souvenirItem = new QTableWidgetItem(purchase.souvenirName);
+//            priceItem    = new QTableWidgetItem("$ " + QString::number(purchase.price));
+//            quantityItem = new QTableWidgetItem(QString::number(purchase.quantity));
+//        }
+
+//        table->insertRow(row);
+
+//        table->setItem(row, 0, stadiumItem  );
+//        table->setItem(row, 1, souvenirItem);
+//        table->setItem(row, 2, priceItem   );
+//        table->setItem(row, 3, quantityItem);
+
+//        stadiumName = purchase.stadiumName;
+
+//        ++row;
+//        ++count;
+
+//        if (count == purchases.size())
+//        {
+//            purchaseTotal = calculatePurchaseTotal(stadiumName);
+
+//            stadiumItem   = new QTableWidgetItem(" ");
+//            souvenirItem = new QTableWidgetItem(" Total: ");
+//            priceItem    = new QTableWidgetItem("$ " + QString::number(purchaseTotal));
+//            quantityItem = new QTableWidgetItem(" ");
+
+//            souvenirItem->setFont(font);
+//            priceItem->setFont(font);
+//            priceItem->setForeground(Qt::darkRed);
+
+//            table->insertRow(row);
+
+//            table->setItem(row, 0, stadiumItem  );
+//            table->setItem(row, 1, souvenirItem);
+//            table->setItem(row, 2, priceItem   );
+//            table->setItem(row, 3, quantityItem);
+//        }
+//    }
+
+//    grandTotal = calculateGrandTotal();
+
+//    label->setText("Grand Total:  $ " + QString::number(grandTotal));
+//}
 
 
 
