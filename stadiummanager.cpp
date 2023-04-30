@@ -1,7 +1,5 @@
 #include "stadiummanager.h"
-
 #include <QtSql>
-
 
 
 StadiumManager::StadiumManager()
@@ -17,7 +15,6 @@ void StadiumManager::setDB(const QString& fileName)
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(fileName);
 }
-
 
 
 void StadiumManager::readDB()
@@ -40,7 +37,6 @@ void StadiumManager::readDB()
 
     db.close();
 }
-
 
 
 void StadiumManager::parseMLBTable(QSqlQuery& query)
@@ -88,8 +84,6 @@ void StadiumManager::parseSouvenirTable(QSqlQuery& query)
 }
 
 
-
-
 void StadiumManager::parseDistanceTable(QSqlQuery& query)
 {
     QString origStadium;
@@ -121,15 +115,171 @@ void StadiumManager::parseDistanceTable(QSqlQuery& query)
 }
 
 
-
-
-MLB& StadiumManager::getStadium(const QString& stadiumName)
+Map<QString, MLB>& StadiumManager::getStadiums()
 {
-    return *map.find(stadiumName);
+    return map;
 }
 
 
+MLB* StadiumManager::getStadium(const QString& stadiumName)
+{
+    return &(*map.find(stadiumName));
+}
 
+
+MLB* StadiumManager::getTeam(const QString& teamName)
+{
+    MLB* mlb { nullptr };
+
+    for (auto& entry : map)
+    {
+        if (entry.getTeamName() == teamName)
+        {
+            mlb = &entry;
+
+            break;
+        }
+    }
+
+    return mlb;
+}
+
+
+MinTree<QString> StadiumManager::MST(const QString& origin)
+{
+    return graph.prims(origin);
+}
+
+
+Trip<MLB*> StadiumManager::DFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dfs { graph.DFS(start) };
+
+    for (auto& vertex : dfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::BFS(const QString& start)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> bfs { graph.BFS(start) };
+
+    for (auto& vertex : bfs.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = bfs.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::shortestPath(const QString& start, const QString& end)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> dijkstras { graph.Dijkstras(start, end) };
+
+    for (auto& vertex : dijkstras.path)
+    {
+            trip.path.push_back((&(*map.find(vertex))));
+    }
+
+    trip.distanceTraveled = dijkstras.distanceTraveled;
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::customOrderTrip(const vector<QString>& stadiums)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> shortestPath;
+
+    for (unsigned int i { }; i < stadiums.size() - 1; ++i)
+    {
+        shortestPath = graph.Dijkstras(stadiums[i], stadiums[i + 1]);
+
+        if (i && shortestPath.path.front() == trip.path.back()->getStadiumName())
+        {
+            shortestPath.path.pop_front();
+        }
+
+        for (auto& stadium : shortestPath.path)
+        {
+            trip.path.push_back(&(*map.find(stadium)));
+        }
+
+        trip.distanceTraveled += shortestPath.distanceTraveled;
+    }
+
+    return trip;
+}
+
+
+Trip<MLB*> StadiumManager::customTrip(vector<QString>& stadiums)
+{
+    Trip<MLB*> trip;
+
+    Trip<QString> shortestPath;
+
+    _customTrip(stadiums, shortestPath);
+
+    for (auto& stadium : shortestPath.path)
+    {
+        trip.path.push_back(&(*map.find(stadium)));
+    }
+
+    trip.distanceTraveled = shortestPath.distanceTraveled;
+
+    return trip;
+}
+
+
+void StadiumManager::_customTrip(vector<QString>& stadiums, Trip<QString>& shortestPath, int count)
+{
+   if (stadiums.size() == 1)
+   {
+       return;
+   }
+   else
+   {
+       Trip<QString> trip { graph.closestVertexPath(stadiums) };
+
+       for (unsigned int i { }; i < stadiums.size(); ++i)
+       {
+           if (stadiums[i] == trip.path.back())
+           {
+               std::swap(stadiums[0], stadiums[i]);
+
+               stadiums.erase(stadiums.begin() + i);
+           }
+       }
+
+       if (count)
+       {
+           trip.path.pop_front();
+       }
+
+       shortestPath.path.splice(shortestPath.path.end(), trip.path);
+
+       shortestPath.distanceTraveled += trip.distanceTraveled;
+
+       _customTrip(stadiums, shortestPath, ++count);
+   }
+}
 
 
 

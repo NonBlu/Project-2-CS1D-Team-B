@@ -227,7 +227,6 @@ QString MLB::getSurface() const
     }
  }
 
-
  void MLB::addSouvenir(const QString& name, float price)
  {
     souvenirs.pushBack(Souvenir { name, price });
@@ -305,3 +304,9 @@ bool MLB::Souvenir::operator!=(const Souvenir& rhs)
 }
 
 
+
+
+Vector<MLB::Souvenir>& MLB::getSouvenirs()
+{
+    return souvenirs;
+}
