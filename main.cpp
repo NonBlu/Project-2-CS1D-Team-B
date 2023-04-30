@@ -81,6 +81,14 @@ int main(int argc, char *argv[])
      qDebug() << "\nDistance Traveled: " << trip.distanceTraveled;
 
 
+//     qDebug() << "Souvenirs:\n";
+
+//     for(auto& souvenir : sm.getStadium("Marlins Park")->getSouvenirs())
+//     {
+//         qDebug() << souvenir.name << ": " << souvenir.price << Qt::endl;
+//     }
+
+
 
 //    Minimal Spanning Tree:
 

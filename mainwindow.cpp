@@ -6,9 +6,12 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow),
+      sm {new StadiumManager()}
 {
     ui->setupUi(this);
+
+    sm->readDB();
 }
 
 MainWindow::~MainWindow()
@@ -35,6 +38,12 @@ void MainWindow::on_viewInfoButton_clicked()
 
 void MainWindow::on_beginButton_clicked()
 {
+//    qDebug() << "Souvenirs\n";
+//    for(auto& souvenir : sm->getStadium("Marlins Park")->getSouvenirs())
+//    {
+//        qDebug() << souvenir.name << ": " << souvenir.price;
+//    }
+
     TourPage tourPage(this, sm);
     tourPage.setModal(true);
     tourPage.exec();
