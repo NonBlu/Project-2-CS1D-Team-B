@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    StadiumManager sm;
+//    StadiumManager sm;
 
     sm.printEntrys();
     sm.printSouvenirs();

@@ -48,57 +48,61 @@ void TourPage::displaySouvenirs()
     QTableWidgetItem* priceItem;
     QSpinBox* quantityBox;
 
-    QString stadiumName = "Test Stadium";
+    QString stadiumName = "Dodger Stadium";
 
     ui->souvenirTable->clearContents();
     ui->souvenirTable->setRowCount(0);
 
-    struct Souvenir
+    for(auto& souvenir : sm->getStadium(stadiumName)->getSouvenirs())
     {
-      QString item;
-      double price;
-    };
-
-    QVector<Souvenir> souvenirs;
-
-    for(int i = 0; i < 5; i++)
-    {
-        souvenirs.push_back(Souvenir());
+        qDebug() << souvenir.name << Qt::endl;
     }
 
-    souvenirs[0].item  = "Baseball cap";
-    souvenirs[0].price = 19.99;
-    souvenirs[1].item  = "Baseball bat";
-    souvenirs[1].price = 89.39;
-    souvenirs[2].item  = "Team pennant";
-    souvenirs[2].price = 17.99;
-    souvenirs[3].item  = "Autographed baseball";
-    souvenirs[3].price = 29.99;
-    souvenirs[4].item  = "Team jersey";
-    souvenirs[4].price = 199.99;
+//    struct Souvenir
+//    {
+//      QString item;
+//      double price;
+//    };
+
+//    for(int i = 0; i < 5; i++)
+//    {
+//        souvenirs.push_back(Souvenir());
+//    }
+
+//    souvenirs[0].item  = "Baseball cap";
+//    souvenirs[0].price = 19.99;
+//    souvenirs[1].item  = "Baseball bat";
+//    souvenirs[1].price = 89.39;
+//    souvenirs[2].item  = "Team pennant";
+//    souvenirs[2].price = 17.99;
+//    souvenirs[3].item  = "Autographed baseball";
+//    souvenirs[3].price = 29.99;
+//    souvenirs[4].item  = "Team jersey";
+//    souvenirs[4].price = 199.99;
 
     int row { };
 
-    for (int row = 0; row < souvenirs.size(); row++)
-    {
-        ui->souvenirTable->insertRow(row);
+//    for (int row = 0; row < souvenirs.size(); row++)
+//    for(auto& souvenir : sm->getStadium(stadiumName)->getSouvenirs())
+//    {
+//        ui->souvenirTable->insertRow(row);
 
-        souvenirItem = new QTableWidgetItem(souvenirs[row].item);
-        priceItem    = new QTableWidgetItem(QString::number(souvenirs[row].price));
-        quantityBox  = new QSpinBox();
+//        souvenirItem = new QTableWidgetItem(souvenir.name);
+//        priceItem    = new QTableWidgetItem(QString::number(souvenir.price));
+//        quantityBox  = new QSpinBox();
 
-        QObject::connect(quantityBox, &QSpinBox::valueChanged,
-                         this,        &TourPage::purchaseItem);
+//        QObject::connect(quantityBox, &QSpinBox::valueChanged,
+//                         this,        &TourPage::purchaseItem);
 
-        quantityBox->setRange(0, 100);
-        quantityBox->setSingleStep(1);
-        quantityBox->setPrefix(" ");
-        quantityBox->setValue(0);
+//        quantityBox->setRange(0, 100);
+//        quantityBox->setSingleStep(1);
+//        quantityBox->setPrefix(" ");
+//        quantityBox->setValue(0);
 
-        ui->souvenirTable->setItem(row, 0, souvenirItem);
-        ui->souvenirTable->setItem(row, 1, priceItem);
-        ui->souvenirTable->setCellWidget(row, 2, quantityBox);
-    }
+//        ui->souvenirTable->setItem(row, 0, souvenirItem);
+//        ui->souvenirTable->setItem(row, 1, priceItem);
+//        ui->souvenirTable->setCellWidget(row, 2, quantityBox);
+//    }
 }
 
 void TourPage::showReceipt()
