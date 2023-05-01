@@ -15,7 +15,7 @@ SOURCES += \
     informationview.cpp \
     main.cpp \
     mainwindow.cpp \
-    recieptview.cpp \
+    receipt.cpp \
     souvenirshop.cpp \
     tourpage.cpp \
     mlb.cpp \
@@ -26,7 +26,7 @@ HEADERS += \
     adminpage.h \
     informationview.h \
     mainwindow.h \
-    recieptview.h \
+    receipt.h \
     souvenirshop.h \
     tourpage.h \
     Containers/Graph.h \
@@ -40,7 +40,7 @@ FORMS += \
     adminpage.ui \
     informationview.ui \
     mainwindow.ui \
-    recieptview.ui \
+    receipt.ui \
     souvenirshop.ui \
     tourpage.ui
 

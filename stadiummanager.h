@@ -37,12 +37,14 @@ class StadiumManager
     void printEntrys();
     void printSouvenirs();
     void printGraph();
+    void readDB();
   
     Map map;// put back to private
 
   private:
     void setDB(const QString& fileName);
-    void readDB();
+//    void readDB();
+
 
     void parseMLBTable(QSqlQuery& query);
     void parseSouvenirTable(QSqlQuery& query);
