@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
       sm {new StadiumManager()}
 {
     ui->setupUi(this);
-
-    sm->readDB();
 }
 
 MainWindow::~MainWindow()

@@ -108,9 +108,9 @@ int main(int argc, char *argv[])
 
 //    StadiumManager sm;
 
-    sm.printEntrys();
-    sm.printSouvenirs();
-    sm.printGraph();
+//    sm.printEntrys();
+//    sm.printSouvenirs();
+//    sm.printGraph();
 
 
     return a.exec();
