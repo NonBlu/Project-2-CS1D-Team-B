@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "stadiummanager.h"
+//#include "stadiummanager.h"
 
 #include <QApplication>
 
@@ -10,13 +10,13 @@ int main(int argc, char *argv[])
     MainWindow w;
 
 
-    StadiumManager sm;
-    Trip<MLB*>     trip;
+//    StadiumManager sm;
+//    Trip<MLB*>     trip;
 
 
 //  ------- Test #1 - DFS ----------------------------
 
-    trip = sm.DFS("Oracle Park");
+//    trip = sm.DFS("Oracle Park");
 
 //  -------- END: Test #1 ----------------------------
 
@@ -32,13 +32,13 @@ int main(int argc, char *argv[])
 
 //  ------- Test #3 Shortest Path --------------------
 
-//    trip = sm.shortestPath("Dodger Stadium", "Nationals Park");
+ //   trip = sm.shortestPath("Dodger Stadium", "Nationals Park");
 
 //  -------- END: Test #3 ----------------------------
 
 
 
-//  ------- Test #3 Custrom Ordered Trip --------------
+//  ------- Test #3 Custom Ordered Trip --------------
 
 //    vector<QString> stadiums;
 
@@ -72,13 +72,13 @@ int main(int argc, char *argv[])
 
      // Return from trips:
 
-     for (auto& stadium : trip.path)
-     {
-         qDebug() << stadium->getStadiumName();
+//     for (auto& stadium : trip.path)
+//     {
+//         qDebug() << stadium->getStadiumName();
 
-     }
+//     }
 
-     qDebug() << "\nDistance Traveled: " << trip.distanceTraveled;
+//     qDebug() << "\nDistance Traveled: " << trip.distanceTraveled;
 
 
 //     qDebug() << "Souvenirs:\n";
@@ -108,9 +108,9 @@ int main(int argc, char *argv[])
 
 //    StadiumManager sm;
 
-    sm.printEntrys();
-    sm.printSouvenirs();
-    sm.printGraph();
+//    sm.printEntrys();
+//    sm.printSouvenirs();
+//    sm.printGraph();
 
 
     return a.exec();
