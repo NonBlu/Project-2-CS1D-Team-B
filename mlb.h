@@ -51,6 +51,7 @@ class MLB
   public:
 
     friend class StadiumManager;
+    friend class AdminPage;
 
     struct Souvenir
     {

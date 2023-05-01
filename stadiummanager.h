@@ -1,5 +1,7 @@
+
 #pragma once
 
+#include <QtSql>
 #include <QSqlDatabase>
 #include "Containers/Map.h"
 #include "Containers/Graph.h"
@@ -17,6 +19,8 @@ class StadiumManager
 
     StadiumManager();
 
+    ~StadiumManager();
+
     // mark the copy/move constructors and assignment operators as deleted
 
     Map& getStadiums();
@@ -31,31 +35,53 @@ class StadiumManager
     Trip<MLB*> shortestPath(const QString& start, const QString& end);
     Trip<MLB*> customTrip(vector<QString>& stadiums);
     Trip<MLB*> customOrderTrip(const vector<QString>& stadiums);
-  
+
+    void parseExpansionTables();
+
+    void addSouvenirToDB(const QString& stadium, const QString& souvenir, float price);
+    void modSouvenirNameInDB(const QString& stadium, const QString& oldName, const QString& newName);
+    void modSouvenirPriceInDB(const QString& stadium, const QString& souvenir, float price);
+    void deleteSouvenirFromDB(const QString& stadium, const QString& souvenir);
+
+    void updateStadiumNameInDB(const QString& teamName, const QString& stadiumName);
+    void updateTeamNameInDB(const QString& stadium, const QString& teamName);
+    void updateSeatingInDB(const QString& stadium, int capacity);
+    void updateLocationInDB(const QString& stadium, const QString& location);
+    void updateSurfaceInDB(const QString& stadium, const QString& surface);
+    void updateLeagueInDB(const QString& stadium, const QString& league);
+    void updateDateInDB(const QString& stadium, int date);
+    void updateFeetToCenterInDB(const QString& stadium, int feet);
+    void updateMetersToCenterInDB(const QString& stadium, int meters);
+    void updateTypologyInDB(const QString& stadium, const QString& typology);
+    void updateRoofTypeInDB(const QString& stadium, const QString& roofType);
 
     // For Testing:
     void printEntrys();
     void printSouvenirs();
     void printGraph();
-  
-    Map map; // put back to private
 
     Map map;  // put back to private
 
   private:
     void setDB(const QString& fileName);
-    void readDB();
 
-    void parseMLBTable(QSqlQuery& query);
-    void parseSouvenirTable(QSqlQuery& query);
-    void parseDistanceTable(QSqlQuery& query);
+    void parseTables();
+    void parseMLBTable(QSqlQuery* query);
+    void parseSouvenirTable(QSqlQuery* query);
+    void parseDistanceTable(QSqlQuery* query);
+
+    void parseMLBXTable(QSqlQuery* query);
+    void parseSouvenirXTable(QSqlQuery* query);
+    void parseDistanceXTable(QSqlQuery* query);
 
     // Recursive calls for custom trip
-    void _customTrip(vector<QString>& stadiums, Trip<QString>& shortestPath, int count = 0);
+    void _customTrip(vector<QString>& stadiums,
+                     Trip<QString>&   shortestPath, int count = 0);
 
     static int distance;
 
     QSqlDatabase  db;
+    QSqlQuery*    query;
   //  Map           map;
     Graph         graph;
 };

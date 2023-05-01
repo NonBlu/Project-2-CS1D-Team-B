@@ -1,22 +1,75 @@
-#ifndef ADMINPAGE_H
-#define ADMINPAGE_H
+#pragma once
+
+#include "stadiummanager.h"
 
 #include <QDialog>
+#include <QTabWidget>
+#include <QTreeWidget>
+#include <QTableWidget>
+#include <QDoubleSpinBox>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QSpinBox>
 
-namespace Ui {
-class AdminPage;
-}
+
+namespace Ui { class AdminPage; }
 
 class AdminPage : public QDialog
 {
     Q_OBJECT
 
-public:
+   public:
     explicit AdminPage(QWidget *parent = nullptr);
+
     ~AdminPage();
 
-private:
-    Ui::AdminPage *ui;
+  protected:
+    void  setupMLBTree();
+    void  displayMLBTree();
+    void  setupSouvenirTable();
+    void  displaySouvenirTable();
+    void  setupAddStadiumModal();
+    MLB*  getMLB(int row);
+    float getPrice(int row);
+
+  private slots:
+    void addExpansionData();
+
+    void addSouvenirRow();
+    void modSouvenir(QTableWidgetItem* item);
+    void updateSouvenirPrice();
+    void deleteSouvenir();
+
+    void updateLeague(const QString& league);
+    void updateSurface(const QString& surface);
+    void updateTypology(const QString& typology);
+    void updateRoof(const QString& roof);
+    void updateSeating(int capacity);
+    void updateDate(int date);
+    void updateFeetToCenter(int feet);
+    void updateMetersToCenter(int meters);
+    void updateMLBInfo(QTreeWidgetItem* item, int column);
+
+    void filterHandler();
+    void clearFilter(); // it also show/hide addStadiumBtn
+
+  private:
+    QTableWidgetItem* createBlankCell();
+    QDoubleSpinBox*   createPriceCell(float price);
+    QPushButton*      createDeleteButton();
+    QTableWidgetItem* createSouvenirItem(QString name);
+    QComboBox*        createComboBox(const QString& attribute, const MLB& mlb);
+    QSpinBox*         createSpinBox(const QString&  attribute, int value);
+
+    StadiumManager* sm;
+    QTabWidget*     tabs;
+    QTreeWidget*    MLBTree;
+    QTableWidget*   souvenirTable;
+    QLineEdit*      filterLine;
+    QPushButton*    addXbutton;
+    QPushButton*    addStadiumBtn;
+    QDialog*        addStadiumModal;
 };
 
-#endif // ADMINPAGE_H
+

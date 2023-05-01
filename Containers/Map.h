@@ -80,7 +80,7 @@ class MapBase
 
         bool operator==(const Iterator& rhs);
         bool operator!=(const Iterator& rhs);
-        
+
         Iterator(const Iterator& rhs)
             : map {rhs.map}, current {rhs.current} { }
 

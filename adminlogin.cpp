@@ -10,7 +10,7 @@ AdminLogin::AdminLogin(QWidget *parent) :
     ui->setupUi(this);
     hidePassword = true;
     ui->passwordText->setEchoMode(QLineEdit::Password);
-    QPixmap lockedPix("C:/Users/miner/source/repos/QT/CS1D_Team_Balls_Project/Resources/locked.png");
+    QPixmap lockedPix(":/Icons/locked.png");
     ui->passViewButton->setIcon(lockedPix);
 }
 
@@ -23,18 +23,18 @@ AdminLogin::~AdminLogin()
 
 void AdminLogin::on_passViewButton_clicked()
 {
-    if(hidePassword == true)
+    if (hidePassword == true)
     {
         hidePassword = false;
         ui->passwordText->setEchoMode(QLineEdit::Normal);
-        QPixmap unlockedPix("C:/Users/miner/source/repos/QT/CS1D_Team_Balls_Project/Resources/unlocked.png");
+        QPixmap unlockedPix(":/Icons/unlocked.png");
         ui->passViewButton->setIcon(unlockedPix);
     }
     else
     {
         hidePassword = true;
         ui->passwordText->setEchoMode(QLineEdit::Password);
-        QPixmap lockedPix("C:/Users/miner/source/repos/QT/CS1D_Team_Balls_Project/Resources/locked.png");
+        QPixmap lockedPix(":/Icons/locked.png");
         ui->passViewButton->setIcon(lockedPix);
     }
 }
@@ -44,7 +44,8 @@ void AdminLogin::on_loginButton_clicked()
 {
     QString username = ui->usernameText->toPlainText();
     QString password = ui->passwordText->text();
-    if(username == "Admin" && password=="1234")
+
+    if (username == "" && password == "")
     {
         this->close();
         AdminPage adminPage;
