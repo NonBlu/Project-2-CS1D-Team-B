@@ -12,10 +12,12 @@ CONFIG += c++17
 SOURCES += \
     adminlogin.cpp \
     adminpage.cpp \
+    dynamictable.cpp \
     informationview.cpp \
     main.cpp \
     mainwindow.cpp \
     receipt.cpp \
+    selectyourtour.cpp \
     souvenirshop.cpp \
     tourpage.cpp \
     mlb.cpp \
@@ -24,9 +26,11 @@ SOURCES += \
 HEADERS += \
     adminlogin.h \
     adminpage.h \
+    dynamictable.h \
     informationview.h \
     mainwindow.h \
     receipt.h \
+    selectyourtour.h \
     souvenirshop.h \
     tourpage.h \
     Containers/Graph.h \
@@ -38,9 +42,11 @@ HEADERS += \
 FORMS += \
     adminlogin.ui \
     adminpage.ui \
+    dynamictable.ui \
     informationview.ui \
     mainwindow.ui \
     receipt.ui \
+    selectyourtour.ui \
     souvenirshop.ui \
     tourpage.ui
 

@@ -67,14 +67,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Select Any Number of Teams to Visit:</string>
+     <string>Select one of the following tours to perform!</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="beginButton">
+   <widget class="QPushButton" name="choiceButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>340</y>
+      <x>10</x>
+      <y>80</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -85,45 +85,8 @@
      </font>
     </property>
     <property name="text">
-     <string>Begin Tour!</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>300</y>
-      <width>251</width>
-      <height>24</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="startingLabel">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>280</y>
-      <width>261</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <underline>true</underline>
-     </font>
-    </property>
-    <property name="text">
-     <string>Select Your Starting Team:</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>80</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
+     <string>Visit Stadiums of 
+Your Choice</string>
     </property>
    </widget>
    <widget class="QPushButton" name="viewInfoButton">
@@ -141,7 +104,84 @@
      </font>
     </property>
     <property name="text">
-     <string>View Information</string>
+     <string>View Individual
+ Teams</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="mstButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Minimum Spanning
+ Tree Tour</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dfsButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Depth First
+Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bfsButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Breadth First
+Search</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dynamicTableButton">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>190</y>
+      <width>131</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Dynamic Information
+Table</string>
     </property>
    </widget>
   </widget>
@@ -151,7 +191,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
