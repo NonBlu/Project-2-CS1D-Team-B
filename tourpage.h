@@ -14,10 +14,12 @@ class TourPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *parent = nullptr);
+    explicit TourPage(QString tripType,   std::vector<QString>& stadiums,
+                      StadiumManager* sm, QWidget *parent = nullptr       );
     void displaySouvenirs();
     void purchaseItem(int quantity);
     void nextStadium();
+
     ~TourPage();
 
 private slots:
@@ -29,7 +31,7 @@ private slots:
 
 private:
     Ui::TourPage *ui;
-    StadiumManager sm;
+    StadiumManager* sm;
     Receipt receipt;
     QString tripType;
     vector<QString>& customTrip;

@@ -17,7 +17,6 @@ struct Purchase
     int     quantity;
 
     bool operator<(const Purchase& purchase)
-
         { return stadiumName < purchase.stadiumName; }
 };
 

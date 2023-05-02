@@ -89,11 +89,11 @@ class MLB
     MLB(const QString& team = "");
 
 
-     MLB(const MLB& other) = default;
+     MLB(const MLB& other)     = default;
      MLB(MLB&& other) noexcept = default;
      ~MLB() = default;
 
-     MLB& operator=(const MLB& rhs) = default;
+     MLB& operator=(const MLB& rhs)     = default;
      MLB& operator=(MLB&& rhs) noexcept = default;
 
     /**

@@ -3,9 +3,8 @@
 #include <QApplication>
 #include <QTableWidget>
 
-InformationView::InformationView(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::InformationView)
+InformationView::InformationView(StadiumManager* sm, QWidget *parent) :
+    QDialog(parent), ui(new Ui::InformationView), sm { sm }
 {
     ui->setupUi(this);
 
@@ -14,7 +13,7 @@ InformationView::InformationView(QWidget *parent) :
     ui->stadiumInfoTable->setHorizontalHeaderLabels(headers);
     ui->stadiumInfoTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    for(auto& mlb : sm.map) {
+    for(auto& mlb : sm->map) {
         QString teamName = mlb.getTeamName();
         ui->teamDropDown->addItem(teamName);
     }
@@ -29,9 +28,9 @@ void InformationView::createTable() {
     QTableWidgetItem* tempTable;
 
     QString tempTeam = ui->teamDropDown->currentText();
-    MLB *stadium = sm.getTeam(tempTeam);
+    MLB *stadium = sm->getTeam(tempTeam);
 
-    for(int i = 0; i < infoType.size(); i++) {
+    for(unsigned int i = 0; i < infoType.size(); i++) {
         tempTable = new QTableWidgetItem;
         ui->stadiumInfoTable->insertRow(ui->stadiumInfoTable->rowCount());
 
@@ -91,7 +90,7 @@ void InformationView::createTable() {
     ui->stadiumInfoTable->setItem(9, 1, tempTable);
 }
 
-void InformationView::on_teamDropDown_currentTextChanged(const QString &arg1)
+void InformationView::on_teamDropDown_currentTextChanged()
 {
     int temp = ui->stadiumInfoTable->rowCount();
     for(int i = 0; i < temp; i++) {

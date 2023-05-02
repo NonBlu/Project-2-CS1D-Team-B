@@ -14,15 +14,16 @@ class SouvenirShop : public QDialog
     Q_OBJECT
 
 public:
-    explicit SouvenirShop(QWidget *parent = nullptr);
-    SouvenirShop(QWidget *parent, StadiumManager* sm = nullptr);
+    explicit SouvenirShop(StadiumManager* sm, QWidget *parent = nullptr);
+//    SouvenirShop(QWidget* parent, StadiumManager* sm = nullptr);
     ~SouvenirShop();
+
     void purchaseItem(int quantity);
     void displaySouvenirs();
 
 private:
-    Ui::SouvenirShop *ui;
-    StadiumManager *sm;
+    Ui::SouvenirShop* ui;
+    StadiumManager*   sm;
     Receipt receipt;
 };
 

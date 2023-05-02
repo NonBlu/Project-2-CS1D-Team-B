@@ -1,9 +1,8 @@
 #include "dynamictable.h"
 #include "ui_dynamictable.h"
 
-DynamicTable::DynamicTable(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::DynamicTable)
+DynamicTable::DynamicTable(StadiumManager* sm, QWidget *parent) :
+    QDialog(parent), ui(new Ui::DynamicTable), sm { sm }
 {
     ui->setupUi(this);
 }

@@ -65,15 +65,18 @@ class Graph
     Vertex* insertVertex(const T1& v);
     Edge*   insertEdge(const T1& v1, const T1& v2, const T2& weight);
 
+    MinTree<T1> prims(const T1& startVertex);
+
     Trip<T1> DFS(const T1& startVertex);
     Trip<T1> BFS(const T1& startVertex);
     Trip<T1> Dijkstras(const T1& startVertex, const T1& destVertex);
-    MinTree<T1> prims(const T1& startVertex);
-
     Trip<T1> closestVertexPath(const vector<T1>& vertexes);
 
     void printGraph();
+    void printVertexes();
     bool hasVertex(const T1& value);
+
+    void updateVertexValue(const T1& oldValue, const T1& newValue);
 
   private:
     int _find(const T1& value);
@@ -144,6 +147,21 @@ bool Graph<T1, T2>::hasVertex(const T1& value)
     }
 
     return found;
+}
+
+
+template <class T1, class T2>
+void Graph<T1, T2>::updateVertexValue(const T1& oldValue, const T1& newValue)
+{
+    for (auto& vertex : vertices)
+    {
+        if (vertex.value == oldValue)
+        {
+            vertex.value = newValue;
+
+            break;
+        }
+    }
 }
 
 
@@ -485,6 +503,18 @@ Trip<T1> Graph<T1, T2>::closestVertexPath(const vector<T1>& vertexes)
 }
 
 
+
+
+// ----- For Testing ---------
+
+template <class T1, class T2>
+void Graph<T1, T2>::printVertexes()
+{
+    for (auto& vertex : vertices)
+    {
+        qDebug() << vertex.value;
+    }
+}
 
 
 template <class T1, class T2>

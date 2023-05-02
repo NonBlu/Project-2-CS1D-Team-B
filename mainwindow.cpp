@@ -8,10 +8,14 @@
 //#include "ui_tourpage.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),       ui        ( new Ui::MainWindow ),
+      sm { new StadiumManager } //adminPage { new AdminPage(sm) }
 {
     ui->setupUi(this);
+
+    adminPage = new AdminPage(sm);
+
+    adminPage->setModal(true);
 
     //---------------------------------------------------------
 }
@@ -19,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
 vector<QString> MainWindow::obtainDefaultList()
 {
     vector<QString> stadiumList;
-    for(auto& mlb : sm.map) {
+
+    for (auto& mlb : sm->map)
+    {
         stadiumList.push_back(mlb.getStadiumName());
     }
 
@@ -34,15 +40,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_adminButton_clicked()
 {
-    AdminLogin adminWindow;
-    adminWindow.setModal(true);
-    adminWindow.exec();
+    AdminLogin adminLogin(adminPage);
+
+    adminLogin.setModal(true);
+
+    adminLogin.exec();
 }
 
 
 void MainWindow::on_viewInfoButton_clicked()
 {
-    InformationView infoPage;
+    InformationView infoPage(sm);
     infoPage.setModal(true);
     infoPage.exec();
 }
@@ -58,9 +66,9 @@ void MainWindow::on_viewInfoButton_clicked()
 
 void MainWindow::on_choiceButton_clicked()
 {
-SelectYourTour selectTour;
-selectTour.setModal(true);
-selectTour.exec();
+    SelectYourTour selectTour(sm);
+    selectTour.setModal(true);
+    selectTour.exec();
 }
 
 
@@ -69,7 +77,7 @@ selectTour.exec();
 void MainWindow::on_mstButton_clicked()
 {
     vector<QString> list = obtainDefaultList();
-    TourPage tourPage("Minimum Spanning Tree", list);
+    TourPage tourPage("Minimum Spanning Tree", list, sm);
     tourPage.setModal(true);
     tourPage.exec();
 }
@@ -78,7 +86,7 @@ void MainWindow::on_mstButton_clicked()
 void MainWindow::on_dfsButton_clicked()
 {
     vector<QString> list = obtainDefaultList();
-    TourPage tourPage("Depth First Search", list);
+    TourPage tourPage("Depth First Search", list, sm);
     tourPage.setModal(true);
     tourPage.exec();
 }
@@ -87,7 +95,7 @@ void MainWindow::on_dfsButton_clicked()
 void MainWindow::on_bfsButton_clicked()
 {
     vector<QString> list = obtainDefaultList();
-    TourPage tourPage("Breadth First Search", list);
+    TourPage tourPage("Breadth First Search", list, sm);
     tourPage.setModal(true);
     tourPage.exec();
 }
@@ -95,7 +103,7 @@ void MainWindow::on_bfsButton_clicked()
 
 void MainWindow::on_dynamicTableButton_clicked()
 {
-    DynamicTable dynTable;
+    DynamicTable dynTable(sm);
     dynTable.setModal(true);
     dynTable.exec();
 }
