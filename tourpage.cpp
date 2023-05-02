@@ -2,28 +2,35 @@
 #include "qspinbox.h"
 #include "./ui_tourpage.h"
 #include "receipt.h"
-#include "ui_souvenirshop.h"
+//#include "ui_souvenirshop.h"
 #include <QDebug>
+#include <QString>
+#include <QMessageBox>
 
-TourPage::TourPage(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::TourPage)
-{
-    ui->setupUi(this);
-}
-
-TourPage::TourPage(QWidget *parent, StadiumManager* sm) :
+TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::TourPage),
-    sm { sm }
+    tripType(tripType),
+    customTrip(stadiums),
+    currentTrip(stadiums)
 {
     ui->setupUi(this);
 
-    receipt.setModal(true);
+    int tempo = stadiums.size();
+    for(int i = 0; i < tempo; i++)
+    {
+        currentTrip.pop_back();
+    }
 
+//    for(int i = 0; i < tempo; i++)
+//    {
+//        qDebug() << customTrip[i];
+//    }
+
+    //Souv table set up
+    receipt.setModal(true);
     QObject::connect(ui->recieptButton, &QPushButton::clicked,
                      this,              &TourPage::showReceipt);
-
     ui->souvenirTable->insertColumn(0);
     ui->souvenirTable->insertColumn(1);
     ui->souvenirTable->insertColumn(2);
@@ -33,15 +40,179 @@ TourPage::TourPage(QWidget *parent, StadiumManager* sm) :
     ui->souvenirTable->setHorizontalHeaderLabels( {"Souvenirs", "Price", "Quantity"} );
 
     ui->souvenirTable->horizontalHeader()->setStretchLastSection(true);
+//--------------------------------------------------------------
 
-    ui->locationLabel->setText("Dodger Stadium");
+    ui->tripTypeLabel->setText(tripType);
+    ui->orderLabel->setVisible(false);
+    Trip<MLB*> trip;
 
-    displaySouvenirs();
+    if (tripType == "Minimum Spanning Tree")
+       {
+           ui->nextButton->setVisible(false);
+           //ui->orderLabel->setVisible(true);
+           ui->locationLabel->setVisible(false);
+           ui->recieptButton->setVisible(false);
+           ui->souvenirTable->setVisible(false);
+           ui->orderLabel->setVisible(true);
+
+           MinTree tree = sm.MST("Marlins Park");
+           QString temp1 = ui->dfsTourLabel->text();
+           QString temp2 = ui->dfsTourLabel_2->text();
+           int counter = 0;
+           for (auto& edge : tree.edges)
+           {
+              counter++;
+              if (counter < 16)
+              {
+              temp1.append("\n");
+              temp1.append(QString::number(counter));
+              temp1.append(" ");
+              temp1.append(edge.orig);
+              temp1.append(" -> ");
+              temp1.append(edge.dest);
+              }
+              else
+              {
+                  temp2.append("\n");
+                  temp2.append(QString::number(counter));
+                  temp2.append(" ");
+                  temp2.append(edge.orig);
+                  temp2.append(" -> ");
+                  temp2.append(edge.dest);
+              }
+           }
+           ui->dfsTourLabel->setText(temp1);
+           ui->dfsTourLabel_2->setText(temp2);
+
+           QString temp = ui->totalDistanceLabel->text();
+           temp.append(" ");
+           temp.append(QString::number(tree.totalDistance));
+           temp.append(" miles");
+           ui->totalDistanceLabel->setText(temp);
+       }
+       else if (tripType == "Depth First Search")
+       {
+        ui->nextButton->setVisible(false);
+        ui->locationLabel->setVisible(false);
+        ui->recieptButton->setVisible(false);
+        ui->souvenirTable->setVisible(false);
+        ui->orderLabel->setVisible(true);
+        trip = sm.DFS("Oracle Park");
+        QString temp1 = ui->dfsTourLabel->text();
+        QString temp2 = ui->dfsTourLabel_2->text();
+        int counter = 0;
+        for (auto& stadium : trip.path)
+        {
+            counter++;
+            if (counter < 16)
+            {
+            temp1.append("\n");
+            temp1.append(QString::number(counter));
+            temp1.append(" ");
+            temp1.append(stadium->getStadiumName());
+            }
+            else
+            {
+            temp2.append("\n");
+            temp2.append(QString::number(counter));
+            temp2.append(" ");
+            temp2.append(stadium->getStadiumName());
+            }
+        }
+        ui->dfsTourLabel->setText(temp1);
+        ui->dfsTourLabel_2->setText(temp2);
+
+        QString temp = ui->totalDistanceLabel->text();
+        temp.append(" ");
+        temp.append(QString::number(trip.distanceTraveled));
+        temp.append(" miles");
+        ui->totalDistanceLabel->setText(temp);
+        }
+        else if (tripType == "Breadth First Search")
+        {
+        ui->nextButton->setVisible(false);
+        ui->locationLabel->setVisible(false);
+        ui->recieptButton->setVisible(false);
+        ui->souvenirTable->setVisible(false);
+        ui->orderLabel->setVisible(true);
+
+        trip = sm.BFS("Target Field");
+        QString temp1 = ui->dfsTourLabel->text();
+        QString temp2 = ui->dfsTourLabel_2->text();
+        int counter = 0;
+        for (auto& stadium : trip.path)
+        {
+            counter++;
+            if (counter < 16)
+            {
+                temp1.append("\n");
+                temp1.append(QString::number(counter));
+                temp1.append(" ");
+                temp1.append(stadium->getStadiumName());
+            }
+            else
+            {
+                temp2.append("\n");
+                temp2.append(QString::number(counter));
+                temp2.append(" ");
+                temp2.append(stadium->getStadiumName());
+            }
+        }
+        ui->dfsTourLabel->setText(temp1);
+        ui->dfsTourLabel_2->setText(temp2);
+        QString temp = ui->totalDistanceLabel->text();
+        temp.append(" ");
+        temp.append(QString::number(trip.distanceTraveled));
+        temp.append(" miles");
+        ui->totalDistanceLabel->setText(temp);
+    }
+    else if (tripType == "Specified Order Tour")
+    {
+        vector<QString> temp;
+        for (int i=0; i < tempo; i++)
+        {
+            temp.push_back(customTrip[i]);
+        }
+        trip = sm.customOrderTrip(temp);
+        for (auto& stadium : trip.path)
+        {
+            currentTrip.push_back(stadium->getStadiumName());
+        }
+        nextStadium();
+    }
+    else if (tripType == "Most Efficient Tour")
+    {
+        vector<QString> temp;
+        for (int i=0; i < tempo; i++)
+        {
+            temp.push_back(customTrip[i]);
+        }
+        trip = sm.customTrip(temp);
+        for (auto& stadium : trip.path)
+        {
+            currentTrip.push_back(stadium->getStadiumName());
+        }
+        nextStadium();
+    }
+
 }
 
 TourPage::~TourPage()
 {
     delete ui;
+}
+
+void TourPage::nextStadium()
+{
+    if (currentTrip.empty())
+    {
+        ui->nextButton->setVisible(false);
+        QMessageBox::information(this, "Congratulations!", "You have finished your tour. Feel free to peruse your reciept and exit the tour.");
+        return;
+    }
+    ui->locationLabel->setText(currentTrip[0]);
+    displaySouvenirs();
+    currentTrip.erase(currentTrip.begin());
 }
 
 void TourPage::displaySouvenirs()
@@ -91,7 +262,7 @@ void TourPage::displaySouvenirs()
     int row { };
 
 //    for (int row = 0; row < souvenirs.size(); row++)
-    for(auto& souvenir : sm->getStadium(stadiumName)->getSouvenirs())
+    for(auto& souvenir : sm.getStadium(stadiumName)->getSouvenirs())
     {
         ui->souvenirTable->insertRow(row);
 
@@ -130,5 +301,19 @@ void TourPage::purchaseItem(int quantity)
     float price          = ui->souvenirTable->item(row, 1)->text().toFloat();
 
     receipt.addPurchase({stadiumName, souvenirName, price, quantity} );
+}
+
+
+void TourPage::on_nextButton_clicked()
+{
+    if (currentTrip.empty())
+    {
+        ui->nextButton->setVisible(false);
+        QMessageBox::information(this, "Congratulations!", "You have finished your tour. Feel free to peruse your reciept and exit the tour.");
+        return;
+    }
+    ui->locationLabel->setText(currentTrip[0]);
+    displaySouvenirs();
+    currentTrip.erase(currentTrip.begin());
 }
 
