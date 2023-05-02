@@ -20,7 +20,7 @@ class AdminPage : public QDialog
     Q_OBJECT
 
    public:
-    explicit AdminPage(QWidget *parent = nullptr);
+    explicit AdminPage(StadiumManager* sm, QWidget *parent = nullptr);
 
     ~AdminPage();
 
@@ -29,7 +29,6 @@ class AdminPage : public QDialog
     void  displayMLBTree();
     void  setupSouvenirTable();
     void  displaySouvenirTable();
-    void  setupAddStadiumModal();
     MLB*  getMLB(int row);
     float getPrice(int row);
 
@@ -52,7 +51,7 @@ class AdminPage : public QDialog
     void updateMLBInfo(QTreeWidgetItem* item, int column);
 
     void filterHandler();
-    void clearFilter(); // it also show/hide addStadiumBtn
+    void clearFilter();
 
   private:
     QTableWidgetItem* createBlankCell();
@@ -68,8 +67,6 @@ class AdminPage : public QDialog
     QTableWidget*   souvenirTable;
     QLineEdit*      filterLine;
     QPushButton*    addXbutton;
-    QPushButton*    addStadiumBtn;
-    QDialog*        addStadiumModal;
 };
 
 

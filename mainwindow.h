@@ -1,8 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include "stadiummanager.h"
+#include "adminlogin.h"
+#include "adminpage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,8 +38,10 @@ private slots:
 signals:
     void tripTypeChanged(QString value);
 private:
-    Ui::MainWindow *ui;
-    StadiumManager sm;
+    Ui::MainWindow* ui;
+    StadiumManager* sm;
+    AdminPage*      adminPage;
+    //AdminLogin      adminLogin;
     //std::vector<QString>& stadiumList;
 };
 #endif // MAINWINDOW_H

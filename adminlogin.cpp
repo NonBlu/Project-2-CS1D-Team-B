@@ -3,9 +3,9 @@
 #include "ui_adminlogin.h"
 #include <QLineEdit>
 #include <QMessageBox>
-AdminLogin::AdminLogin(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AdminLogin)
+
+AdminLogin::AdminLogin(AdminPage* adminPage, QWidget *parent)
+    : QDialog(parent), ui(new Ui::AdminLogin), adminPage { adminPage }
 {
     ui->setupUi(this);
     hidePassword = true;
@@ -45,12 +45,11 @@ void AdminLogin::on_loginButton_clicked()
     QString username = ui->usernameText->toPlainText();
     QString password = ui->passwordText->text();
 
-    if (username == "" && password == "")
+    if (username == "Admin" && password == "1234")
     {
         this->close();
-        AdminPage adminPage;
-        adminPage.setModal(true);
-        adminPage.exec();
+
+        adminPage->show();
     }
     else
     {

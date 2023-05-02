@@ -4,7 +4,7 @@
 
 StadiumManager::StadiumManager()
 {
-    setDB("C:/Coding/Project-2-CS1D-Team-B-main-gonna-merge/Balls.db");
+    setDB("/Volumes/USB1/ProjectOld/Balls.db");
 
     query = new QSqlQuery(db);
 
@@ -310,7 +310,7 @@ void StadiumManager::updateLocationInDB(const QString& stadium, const QString& l
 
 void StadiumManager::updateSurfaceInDB(const QString& stadium, const QString& surface)
 {
-    query->prepare("UPDATE MLB SET Surface = ? WHERE StadiumName = ?; ");
+    query->prepare("UPDATE MLB SET PlayingSurface = ? WHERE StadiumName = ?; ");
 
     query->bindValue(0, surface);
     query->bindValue(1, stadium);
@@ -365,7 +365,7 @@ void StadiumManager::updateMetersToCenterInDB(const QString& stadium, int meters
 
 void StadiumManager::updateTypologyInDB(const QString& stadium, const QString& typology)
 {
-    query->prepare("UPDATE MLB SET Typology = ? WHERE StadiumName = ?; ");
+    query->prepare("UPDATE MLB SET BallparkTypology = ? WHERE StadiumName = ?; ");
 
     query->bindValue(0, typology);
     query->bindValue(1, stadium);
@@ -713,4 +713,10 @@ void StadiumManager::printSouvenirs()
 void StadiumManager::printGraph()
 {
     graph.printGraph();
+}
+
+
+void StadiumManager::printVertices()
+{
+    graph.printVertexes();
 }

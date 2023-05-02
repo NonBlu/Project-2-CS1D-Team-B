@@ -9,10 +9,10 @@
 #include <QSize>
 
 
-AdminPage::AdminPage(QWidget *parent)
-    : QDialog(parent), sm { new StadiumManager }, tabs      { new QTabWidget(this)   },
-      MLBTree    { new QTreeWidget(tabs) }, souvenirTable   { new QTableWidget(tabs) },
-      filterLine { new QLineEdit(this)   }, addStadiumModal { new QDialog(this)      }
+AdminPage::AdminPage(StadiumManager* sm, QWidget *parent)
+    : QDialog(parent), sm { sm },           tabs          { new QTabWidget(this)   },
+      MLBTree    { new QTreeWidget(tabs) }, souvenirTable { new QTableWidget(tabs) },
+      filterLine { new QLineEdit(this)   }
 {
     this->setFixedHeight(800);
     this->setFixedWidth(690);
@@ -54,11 +54,6 @@ AdminPage::AdminPage(QWidget *parent)
                          this,       &AdminPage::addExpansionData);
     }
 
-
-    addStadiumBtn = new QPushButton(QIcon (":/Icons/add.png"), "", this);
-    addStadiumBtn->setGeometry(175, 12, 30, 30);
-    addStadiumBtn->setStyleSheet("border: none;");
-
     setupMLBTree();
     setupSouvenirTable();
 
@@ -67,27 +62,27 @@ AdminPage::AdminPage(QWidget *parent)
 }
 
 
+
+// Need to clear widget elements before deleting!!!
 AdminPage::~AdminPage()
 {
-    delete addStadiumBtn;
     delete addXbutton;
-    delete addStadiumModal;
     delete filterLine;
-    delete souvenirTable;
-    delete MLBTree;
-    delete tabs;
+//    delete souvenirTable;
+//    delete MLBTree;
+//    delete tabs;
 }
 
 
 void AdminPage::addExpansionData()
 {
-    sm->parseExpansionTables();
+//    sm->parseExpansionTables();
 
-    displayMLBTree();
+//    displayMLBTree();
 
-    displaySouvenirTable();
+//    displaySouvenirTable();
 
-    addXbutton->hide();
+//    addXbutton->hide();
 }
 
 
@@ -354,14 +349,6 @@ void AdminPage::displaySouvenirTable()
 
 
 
-void AdminPage::setupAddStadiumModal()
-{
-    addStadiumModal->setFixedWidth(400);
-    addStadiumModal->setFixedHeight(600);
-}
-
-
-
 QSpinBox* AdminPage::createSpinBox(const QString& attribute, int value)
 {
     QSpinBox* box { new QSpinBox() };
@@ -429,7 +416,6 @@ QComboBox* AdminPage::createComboBox(const QString& attribute, const MLB& mlb)
 
         QObject::connect(box,  &QComboBox::currentTextChanged,
                          this, &AdminPage::updateSurface      );
-
     }
     else if (attribute == "League")
     {
@@ -514,9 +500,6 @@ QComboBox* AdminPage::createComboBox(const QString& attribute, const MLB& mlb)
 
     return box;
 }
-
-
-
 
 
 
@@ -669,17 +652,23 @@ void AdminPage::deleteSouvenir()
 }
 
 
-// Handle map key when changing stadium name!
-// Also update graph if stadium name changes!!
 void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
 {
     MLB* mlb { nullptr };
 
     if (!item->parent())
     {
-        mlb = sm->getTeam(item->child(0)->text(1));
+        QString oldName;
 
+        mlb     = sm->getTeam(item->child(0)->text(1));
+        oldName = mlb->getStadiumName();
         mlb->setStadiumName(item->text(0));
+
+        sm->graph.updateVertexValue(oldName, item->text(0));
+
+        sm->map.erase(oldName);
+        sm->map.put( { item->text(0), *mlb } );
+
         sm->updateStadiumNameInDB(mlb->getTeamName(), item->text(0));
     }
     else if (column)
@@ -765,8 +754,10 @@ void AdminPage::updateSurface(const QString& surface)
     QString stadium { MLBTree->itemAt(widget->pos())->parent()->text(0) };
     MLB*    mlb     { sm->getStadium(stadium)                           };
 
+    qDebug() << surface;
+
     mlb->setSurface(surface);
-    sm->updateLeagueInDB(stadium, surface);
+    sm->updateSurfaceInDB(stadium, surface);
 }
 
 
@@ -777,7 +768,7 @@ void AdminPage::updateTypology(const QString& typology)
     MLB*     mlb     { sm->getStadium(stadium)                           };
 
     mlb->setTypology(typology);
-    sm->updateLeagueInDB(stadium, typology);
+    sm->updateTypologyInDB(stadium, typology);
 }
 
 
@@ -788,7 +779,7 @@ void AdminPage::updateRoof(const QString& roof)
     MLB*     mlb     { sm->getStadium(stadium)                           };
 
     mlb->setRoofType(roof);
-    sm->updateLeagueInDB(stadium, roof);
+    sm->updateRoofTypeInDB(stadium, roof);
 }
 
 
@@ -802,23 +793,10 @@ void AdminPage::clearFilter()
         if (tabs->currentIndex())
         {
             displayMLBTree();
-            addStadiumBtn->hide();
         }
         else
         {
             displaySouvenirTable();
-            addStadiumBtn->show();
-        }
-    }
-    else
-    {
-        if (tabs->currentIndex())
-        {
-            addStadiumBtn->hide();
-        }
-        else
-        {
-            addStadiumBtn->show();
         }
     }
 }
