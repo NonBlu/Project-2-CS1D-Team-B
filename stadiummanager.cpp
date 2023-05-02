@@ -263,12 +263,28 @@ void StadiumManager::parseDistanceXTable(QSqlQuery* query)
 }
 
 
-void StadiumManager::updateStadiumNameInDB(const QString& teamName, const QString& stadiumName)
+void StadiumManager::updateStadiumNameInDB(const QString& oldName, const QString& newName)
 {
-    query->prepare("UPDATE MLB SET StadiumName = ? WHERE TeamName = ?; ");
+    query->prepare("UPDATE MLB SET StadiumName = ? WHERE StadiumName = ?; ");
 
-    query->bindValue(0, stadiumName);
-    query->bindValue(1, teamName);
+    query->bindValue(0, newName);
+    query->bindValue(1, oldName);
+
+    query->exec();
+
+
+    query->prepare("UPDATE Distances SET OrigStadium = ? WHERE OrigStadium = ?; ");
+
+    query->bindValue(0, newName);
+    query->bindValue(1, oldName);
+
+    query->exec();
+
+
+    query->prepare("UPDATE Distances SET DestStadium = ? WHERE DestStadium = ?; ");
+
+    query->bindValue(0, newName);
+    query->bindValue(1, oldName);
 
     query->exec();
 }

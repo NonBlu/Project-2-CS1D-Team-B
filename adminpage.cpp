@@ -102,6 +102,7 @@ void AdminPage::filterHandler()
 void AdminPage::setupMLBTree()
 {
     QStringList headers;
+
     headers << "Attribute" << "Values";
 
     MLBTree->setColumnCount(2);
@@ -117,8 +118,8 @@ void AdminPage::setupMLBTree()
     if (palette().color(QPalette::Window).value() == 236)
     {
         MLBTree->setStyleSheet( "QHeaderView { background-color: MintCream;"
-                                "             font-size:         12pt;"
-                                "             font-weight:       bold;       }"   );
+                                "              font-size:        12pt;"
+                                "              font-weight:      bold;       }"   );
     }
     else
     {
@@ -669,7 +670,7 @@ void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
         sm->map.erase(oldName);
         sm->map.put( { item->text(0), *mlb } );
 
-        sm->updateStadiumNameInDB(mlb->getTeamName(), item->text(0));
+        sm->updateStadiumNameInDB(oldName, item->text(0));
     }
     else if (column)
     {
