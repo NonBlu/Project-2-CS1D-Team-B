@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     adminlogin.cpp \
     adminpage.cpp \
+    centerfielddist.cpp \
     dynamictable.cpp \
     informationview.cpp \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     adminlogin.h \
     adminpage.h \
+    centerfielddist.h \
     dynamictable.h \
     informationview.h \
     mainwindow.h \
@@ -42,6 +44,7 @@ HEADERS += \
 FORMS += \
     adminlogin.ui \
     adminpage.ui \
+    centerfielddist.ui \
     dynamictable.ui \
     informationview.ui \
     mainwindow.ui \
