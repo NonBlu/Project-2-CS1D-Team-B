@@ -223,7 +223,7 @@ void TourPage::displaySouvenirs()
     QTableWidgetItem* priceItem;
     QSpinBox* quantityBox;
 
-    QString stadiumName = customTrip[i];
+    QString stadiumName = customTrip[0];
 
     ui->souvenirTable->clearContents();
     ui->souvenirTable->setRowCount(0);
@@ -263,13 +263,18 @@ void TourPage::displaySouvenirs()
 
     int row { };
 
+//    QTableWidgetItem *item = new QTableWidgetItem();
+
+
 //    for (int row = 0; row < souvenirs.size(); row++)
     for(auto& souvenir : sm->getStadium(stadiumName)->getSouvenirs())
     {
         ui->souvenirTable->insertRow(row);
 
         souvenirItem = new QTableWidgetItem(souvenir.name);
+        souvenirItem->setFlags(souvenirItem->flags() ^ Qt::ItemIsEditable);
         priceItem    = new QTableWidgetItem(QString::number(souvenir.price));
+        priceItem->setFlags(priceItem->flags() ^ Qt::ItemIsEditable);
         quantityBox  = new QSpinBox();
 
         QObject::connect(quantityBox, &QSpinBox::valueChanged,
