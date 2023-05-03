@@ -223,7 +223,7 @@ void TourPage::displaySouvenirs()
     QTableWidgetItem* priceItem;
     QSpinBox* quantityBox;
 
-    QString stadiumName = "Dodger Stadium";
+    QString stadiumName = customTrip[i];
 
     ui->souvenirTable->clearContents();
     ui->souvenirTable->setRowCount(0);
