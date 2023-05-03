@@ -16,6 +16,12 @@ public:
     explicit DynamicTable(StadiumManager* sm, QWidget *parent = nullptr);
     ~DynamicTable();
 
+private slots:
+
+    void on_filterDropdown_currentTextChanged(const QString &arg1);
+
+    void on_sortDropdown_currentTextChanged(const QString &arg1);
+
 private:
     Ui::DynamicTable* ui;
     StadiumManager*   sm;
