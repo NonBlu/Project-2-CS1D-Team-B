@@ -1,9 +1,9 @@
 
-#include "Receipt.h"
+#include "receipt.h"
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QTableWidgetItem>
-#include <Qlabel>
+#include <QLabel>
 
 
 Receipt::Receipt()
@@ -85,14 +85,14 @@ void Receipt::displayPurchases()
     {
         if (!row)
         {
-            stadiumItem   = new QTableWidgetItem(purchase.stadiumName);
+            stadiumItem  = new QTableWidgetItem(purchase.stadiumName);
             souvenirItem = new QTableWidgetItem(purchase.souvenirName);
             priceItem    = new QTableWidgetItem("$ " + QString::number(purchase.price));
             quantityItem = new QTableWidgetItem(QString::number(purchase.quantity));
         }
         else if (stadiumName == purchase.stadiumName)
         {
-            stadiumItem   = new QTableWidgetItem(" ");
+            stadiumItem  = new QTableWidgetItem(" ");
             souvenirItem = new QTableWidgetItem(purchase.souvenirName);
             priceItem    = new QTableWidgetItem("$ " + QString::number(purchase.price));
             quantityItem = new QTableWidgetItem(QString::number(purchase.quantity));
@@ -101,7 +101,7 @@ void Receipt::displayPurchases()
         {
             purchaseTotal = calculatePurchaseTotal(stadiumName);
 
-            stadiumItem   = new QTableWidgetItem(" ");
+            stadiumItem  = new QTableWidgetItem(" ");
             souvenirItem = new QTableWidgetItem(" Total: ");
             priceItem    = new QTableWidgetItem("$ " + QString::number(purchaseTotal));
             quantityItem = new QTableWidgetItem(" ");
@@ -159,7 +159,7 @@ void Receipt::displayPurchases()
         {
             purchaseTotal = calculatePurchaseTotal(stadiumName);
 
-            stadiumItem   = new QTableWidgetItem(" ");
+            stadiumItem  = new QTableWidgetItem(" ");
             souvenirItem = new QTableWidgetItem(" Total: ");
             priceItem    = new QTableWidgetItem("$ " + QString::number(purchaseTotal));
             quantityItem = new QTableWidgetItem(" ");

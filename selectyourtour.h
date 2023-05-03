@@ -4,20 +4,20 @@
 #include <QDialog>
 #include "stadiummanager.h"
 
-namespace Ui {
-class SelectYourTour;
-}
+namespace Ui { class SelectYourTour; }
 
 class SelectYourTour : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit SelectYourTour(QWidget *parent = nullptr);
+    explicit SelectYourTour(StadiumManager* sm, QWidget *parent = nullptr);
+
     ~SelectYourTour();
 
 signals:
     void orderTypeChanged(QString value);
+
 private slots:
     void on_nextButton_clicked();
 
@@ -28,8 +28,8 @@ private slots:
     void on_efficientButton_clicked();
 
 private:
-    Ui::SelectYourTour *ui;
-    StadiumManager sm;
+    Ui::SelectYourTour* ui;
+    StadiumManager*     sm;
     vector<QString> customTrip;
 };
 

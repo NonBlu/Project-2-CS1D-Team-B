@@ -12,6 +12,8 @@ using Iterator = Map<QString, MLB>::Iterator;
 
 class StadiumManager
 {
+    friend class AdminPage;
+
   public:
 
     using Map   = Map<QString, MLB>;
@@ -43,7 +45,7 @@ class StadiumManager
     void modSouvenirPriceInDB(const QString& stadium, const QString& souvenir, float price);
     void deleteSouvenirFromDB(const QString& stadium, const QString& souvenir);
 
-    void updateStadiumNameInDB(const QString& teamName, const QString& stadiumName);
+    void updateStadiumNameInDB(const QString& oldName, const QString& newName);
     void updateTeamNameInDB(const QString& stadium, const QString& teamName);
     void updateSeatingInDB(const QString& stadium, int capacity);
     void updateLocationInDB(const QString& stadium, const QString& location);
@@ -59,6 +61,7 @@ class StadiumManager
     void printEntrys();
     void printSouvenirs();
     void printGraph();
+    void printVertices();
 
     Map map;  // put back to private
 
@@ -82,6 +85,6 @@ class StadiumManager
 
     QSqlDatabase  db;
     QSqlQuery*    query;
-  //  Map           map;
+ //   Map           map;
     Graph         graph;
 };

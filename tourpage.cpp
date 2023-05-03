@@ -7,16 +7,14 @@
 #include <QString>
 #include <QMessageBox>
 
-TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::TourPage),
-    tripType(tripType),
-    customTrip(stadiums),
-    currentTrip(stadiums)
+TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumManager* sm, QWidget *parent)
+    : QDialog(parent), ui(new Ui::TourPage), sm { sm }, tripType(tripType), customTrip(stadiums), currentTrip(stadiums)
+
 {
     ui->setupUi(this);
 
     int tempo = stadiums.size();
+
     for(int i = 0; i < tempo; i++)
     {
         currentTrip.pop_back();
@@ -55,7 +53,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *pa
            ui->souvenirTable->setVisible(false);
            ui->orderLabel->setVisible(true);
 
-           MinTree tree = sm.MST("Marlins Park");
+           MinTree tree = sm->MST("Marlins Park");
            QString temp1 = ui->dfsTourLabel->text();
            QString temp2 = ui->dfsTourLabel_2->text();
            int counter = 0;
@@ -97,7 +95,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *pa
         ui->recieptButton->setVisible(false);
         ui->souvenirTable->setVisible(false);
         ui->orderLabel->setVisible(true);
-        trip = sm.DFS("Oracle Park");
+        trip = sm->DFS("Oracle Park");
         QString temp1 = ui->dfsTourLabel->text();
         QString temp2 = ui->dfsTourLabel_2->text();
         int counter = 0;
@@ -136,7 +134,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *pa
         ui->souvenirTable->setVisible(false);
         ui->orderLabel->setVisible(true);
 
-        trip = sm.BFS("Target Field");
+        trip = sm->BFS("Target Field");
         QString temp1 = ui->dfsTourLabel->text();
         QString temp2 = ui->dfsTourLabel_2->text();
         int counter = 0;
@@ -173,7 +171,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *pa
         {
             temp.push_back(customTrip[i]);
         }
-        trip = sm.customOrderTrip(temp);
+        trip = sm->customOrderTrip(temp);
         for (auto& stadium : trip.path)
         {
             currentTrip.push_back(stadium->getStadiumName());
@@ -183,11 +181,14 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, QWidget *pa
     else if (tripType == "Most Efficient Tour")
     {
         vector<QString> temp;
+
         for (int i=0; i < tempo; i++)
         {
             temp.push_back(customTrip[i]);
         }
-        trip = sm.customTrip(temp);
+
+        trip = sm->customTrip(temp);
+
         for (auto& stadium : trip.path)
         {
             currentTrip.push_back(stadium->getStadiumName());
@@ -210,6 +211,7 @@ void TourPage::nextStadium()
         QMessageBox::information(this, "Congratulations!", "You have finished your tour. Feel free to peruse your reciept and exit the tour.");
         return;
     }
+
     ui->locationLabel->setText(currentTrip[0]);
     displaySouvenirs();
     currentTrip.erase(currentTrip.begin());
@@ -262,7 +264,7 @@ void TourPage::displaySouvenirs()
     int row { };
 
 //    for (int row = 0; row < souvenirs.size(); row++)
-    for(auto& souvenir : sm.getStadium(stadiumName)->getSouvenirs())
+    for(auto& souvenir : sm->getStadium(stadiumName)->getSouvenirs())
     {
         ui->souvenirTable->insertRow(row);
 
@@ -312,6 +314,7 @@ void TourPage::on_nextButton_clicked()
         QMessageBox::information(this, "Congratulations!", "You have finished your tour. Feel free to peruse your reciept and exit the tour.");
         return;
     }
+
     ui->locationLabel->setText(currentTrip[0]);
     displaySouvenirs();
     currentTrip.erase(currentTrip.begin());
