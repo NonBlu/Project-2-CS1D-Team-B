@@ -4,7 +4,7 @@
 
 StadiumManager::StadiumManager()
 {
-    setDB("/Users/miner/Downloads/Project-2-CS1D-Team-B-main/Project-2-CS1D-Team-B-main/Balls.db");
+    setDB("/Users/natasha/repos/CS1D/Project-2-CS1D-Team-B/Balls.db");
 
     query = new QSqlQuery(db);
 
