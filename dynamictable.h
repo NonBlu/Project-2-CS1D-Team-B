@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <stadiummanager.h>
+#include <centerfielddist.h>
 
 namespace Ui {
 class DynamicTable;
@@ -21,6 +22,10 @@ private slots:
     void on_filterDropdown_currentTextChanged(const QString &arg1);
 
     void on_sortDropdown_currentTextChanged(const QString &arg1);
+
+    void on_greatestDistButton_clicked();
+
+    void on_smallestDistButton_clicked();
 
 private:
     Ui::DynamicTable* ui;

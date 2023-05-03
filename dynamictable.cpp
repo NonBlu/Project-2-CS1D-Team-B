@@ -9,12 +9,12 @@ DynamicTable::DynamicTable(StadiumManager* sm, QWidget *parent) :
     QTableWidgetItem* tempTable;
 
     vector<QString> filterList = { "N/A", "American League", "National League", "Open Roof Type" };
-    for(int a = 0; a < filterList.size(); a++) {
+    for(unsigned int a = 0; a < filterList.size(); a++) {
         ui->filterDropdown->addItem(filterList[a]);
     }
 
     vector<QString> sortList = { "N/A", "Stadium", "Team", "Park Typology", "Date Opened", "Seating Capacity" };
-    for(int b = 0; b < sortList.size(); b++) {
+    for(unsigned int b = 0; b < sortList.size(); b++) {
         ui->sortDropdown->addItem(sortList[b]);
     }
 
@@ -160,5 +160,21 @@ void DynamicTable::on_sortDropdown_currentTextChanged(const QString &arg1)
     else {
         return; // For condition "N/A"
     }
+}
+
+
+void DynamicTable::on_greatestDistButton_clicked()
+{
+    CenterFieldDist dialog("greatest", sm);
+    dialog.setModal(true);
+    dialog.exec();
+}
+
+
+void DynamicTable::on_smallestDistButton_clicked()
+{
+    CenterFieldDist dialog("smallest", sm);
+    dialog.setModal(true);
+    dialog.exec();
 }
 
