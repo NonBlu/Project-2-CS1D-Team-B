@@ -560,11 +560,11 @@ QDoubleSpinBox*AdminPage::createPriceCell(float price)
     if      (price <  10) prefix += "  ";
     else if (price < 100) prefix += " ";
 
-    box->setPrefix(prefix);
-    box->setValue(price);
-
     box->setRange(0.0, 999.99);
     box->setSingleStep(0.01);
+
+    box->setPrefix(prefix);
+    box->setValue(price);
 
     QObject::connect(box,  &QDoubleSpinBox::editingFinished,
                      this, &AdminPage::updateSouvenirPrice);

@@ -60,7 +60,7 @@
    </property>
    <property name="text">
     <string>Next
-College</string>
+Stadium</string>
    </property>
   </widget>
   <widget class="QPushButton" name="recieptButton">
