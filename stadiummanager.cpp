@@ -195,7 +195,7 @@ void StadiumManager::parseSouvenirXTable(QSqlQuery* query)
         for (auto& souvenir : mlb->souvenirs)
         {
             query->prepare("INSERT INTO Souvenirs (Stadium, Name, Price) "
-                          "VALUES (?, ?, ?);"                             );
+                           "VALUES (?, ?, ?);"                             );
 
             query->bindValue(0, mlb->getStadiumName());
             query->bindValue(1, souvenir.name);
@@ -222,6 +222,8 @@ void StadiumManager::parseDistanceXTable(QSqlQuery* query)
     destStadiums.push_back(query->value(1).toString());
     distances.push_back(query->value(2).toInt());
 
+    graph.insertVertex(origStadium);
+
     graph.insertEdge(origStadium, destStadiums.back(), distances.back());
     graph.insertEdge(destStadiums.back(), origStadium, distances.back());
 
@@ -240,7 +242,7 @@ void StadiumManager::parseDistanceXTable(QSqlQuery* query)
     for (unsigned int i { }; i < distances.size(); ++i)
     {
         query->prepare("INSERT INTO DISTANCES (OrigStadium, destStadium, Distance) "
-                      "VALUES (?, ?, ?);"                                          );
+                       "VALUES (?, ?, ?);"                                          );
 
         query->bindValue(0, origStadium    );
         query->bindValue(1, destStadiums[i]);
@@ -252,7 +254,7 @@ void StadiumManager::parseDistanceXTable(QSqlQuery* query)
     for (unsigned int i { }; i < distances.size(); ++i)
     {
         query->prepare("INSERT INTO DISTANCES (OrigStadium, destStadium, Distance) "
-                      "VALUES (?, ?, ?);"                                          );
+                       "VALUES (?, ?, ?);"                                          );
 
         query->bindValue(0, destStadiums[i]);
         query->bindValue(1, origStadium    );
@@ -405,27 +407,14 @@ void StadiumManager::addSouvenirToDB(const QString& stadium,
                                      const QString& souvenir,
                                      float price             )
 {
-    QSqlQuery query(db);
+   query->prepare("INSERT INTO Souvenirs (Stadium, Name, Price) "
+                 "VALUES (?, ?, ?);"                             );
 
-    db.open();
+   query->bindValue(0, stadium  );
+   query->bindValue(1, souvenir );
+   query->bindValue(2, price    );
 
-   if (!db.isOpen())
-   {
-       qDebug() << "Database did not open to add a Souvenir";
-   }
-   else
-   {
-       query.prepare("INSERT INTO Souvenirs (Stadium, Name, Price) "
-                     "VALUES (?, ?, ?);"                             );
-
-       query.bindValue(0, stadium  );
-       query.bindValue(1, souvenir );
-       query.bindValue(2, price    );
-
-       query.exec();
-
-       db.close();
-   }
+   query->exec();
 }
 
 
@@ -434,28 +423,15 @@ void StadiumManager::modSouvenirNameInDB(const QString& stadium,
                                          const QString& oldName,
                                          const QString& newName )
 {
-    QSqlQuery query(db);
+    query->prepare("UPDATE Souvenirs "
+                   "SET Name = ? "
+                   "WHERE Stadium = ? AND Name = ?;");
 
-    db.open();
+   query->bindValue(0, newName);
+   query->bindValue(1, stadium);
+   query->bindValue(2, oldName);
 
-   if (!db.isOpen())
-   {
-       qDebug() << "Database did not open to modify a souvenir name";
-   }
-   else
-   {
-       query.prepare("UPDATE Souvenirs "
-                     "SET Name = ? "
-                     "WHERE Stadium = ? AND Name = ?;");
-
-       query.bindValue(0, newName);
-       query.bindValue(1, stadium);
-       query.bindValue(2, oldName);
-
-       query.exec();
-
-       db.close();
-   }
+   query->exec();
 }
 
 
@@ -464,54 +440,39 @@ void StadiumManager::modSouvenirPriceInDB(const QString& stadium,
                                           const QString& souvenir,
                                                 float    price    )
 {
-    QSqlQuery query(db);
+   query->prepare("UPDATE Souvenirs "
+                  "SET Price = ? "
+                  "WHERE Stadium = ? AND Name = ?;");
 
-    db.open();
+   query->bindValue(0, price   );
+   query->bindValue(1, stadium );
+   query->bindValue(2, souvenir);
 
-   if (!db.isOpen())
-   {
-       qDebug() << "Database did not open to modify a souvnirs price";
-   }
-   else
-   {
-       query.prepare("UPDATE Souvenirs "
-                     "SET Price = ? "
-                     "WHERE Stadium = ? AND Name = ?;");
-
-       query.bindValue(0, price   );
-       query.bindValue(1, stadium );
-       query.bindValue(2, souvenir);
-
-       query.exec();
-
-       db.close();
-   }
+   query->exec();
 }
 
 
 
 void StadiumManager::deleteSouvenirFromDB(const QString& stadium, const QString& souvenir)
 {
-    QSqlQuery query(db);
+    query->prepare("DELETE FROM Souvenirs "
+                   "WHERE Stadium = ? AND Name = ?; ");
 
-    db.open();
+    query->bindValue(0, stadium);
+    query->bindValue(1, souvenir);
 
-   if (!db.isOpen())
-   {
-       qDebug() << "Database did not open to delete a souvenir";
-   }
-   else
-   {
-        query.prepare("DELETE FROM Souvenirs "
-                      "WHERE Stadium = ? AND Name = ?; "      );
+    query->exec();
+}
 
-        query.bindValue(0, stadium);
-        query.bindValue(1, souvenir);
 
-        query.exec();
+void StadiumManager::updateStadiumForSouvenir(const QString& oldName, const QString& newName)
+{
+    query->prepare("UPDATE Souvenirs SET Stadium = ? WHERE Stadium = ?;");
 
-        db.close();
-   }
+    query->bindValue(0, newName);
+    query->bindValue(1, oldName);
+
+    query->exec();
 }
 
 

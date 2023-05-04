@@ -53,7 +53,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
            ui->souvenirTable->setVisible(false);
            ui->orderLabel->setVisible(true);
 
-           MinTree tree = sm->MST("Marlins Park");
+           MinTree tree  = sm->MST("Marlins Park");
            QString temp1 = ui->dfsTourLabel->text();
            QString temp2 = ui->dfsTourLabel_2->text();
            int counter = 0;
@@ -193,7 +193,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
         {
             currentTrip.push_back(stadium->getStadiumName());
         }
-     //   nextStadium();
+        nextStadium();
     }
 
 }
@@ -213,7 +213,7 @@ void TourPage::nextStadium()
     }
 
     ui->locationLabel->setText(currentTrip[0]);
-  //  displaySouvenirs();
+    displaySouvenirs();
     currentTrip.erase(currentTrip.begin());
 }
 
@@ -223,7 +223,7 @@ void TourPage::displaySouvenirs()
     QTableWidgetItem* priceItem;
     QSpinBox* quantityBox;
 
-    QString stadiumName = "Dodger Stadium";
+    QString stadiumName = customTrip[0];
 
     ui->souvenirTable->clearContents();
     ui->souvenirTable->setRowCount(0);

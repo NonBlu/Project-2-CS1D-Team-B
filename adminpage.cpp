@@ -17,12 +17,11 @@ AdminPage::AdminPage(StadiumManager* sm, QWidget *parent)
     this->setFixedHeight(800);
     this->setFixedWidth(690);
 
-
     filterLine->setGeometry(20, 15, 150, 25);
     filterLine->setPlaceholderText("🔍  Search...");
 
     QObject::connect(filterLine, &QLineEdit::editingFinished,
-                     this,       &AdminPage::filterHandler  );
+                     this,       &AdminPage::filterHandler   );
 
 
     tabs->setGeometry(20, 40, 650, 740);
@@ -50,8 +49,11 @@ AdminPage::AdminPage(StadiumManager* sm, QWidget *parent)
                                        "              background-color:    SteelBlue;     }");
         }
 
-        QObject::connect(addXbutton, &QPushButton::clicked,
+        QObject::connect(addXbutton, &QPushButton::pressed,
                          this,       &AdminPage::addExpansionData);
+
+        addXbutton->setDefault(false);
+        addXbutton->setAutoDefault(false);
     }
 
     setupMLBTree();
@@ -76,13 +78,13 @@ AdminPage::~AdminPage()
 
 void AdminPage::addExpansionData()
 {
-//    sm->parseExpansionTables();
+    sm->parseExpansionTables();
 
-//    displayMLBTree();
+    displayMLBTree();
 
-//    displaySouvenirTable();
+    displaySouvenirTable();
 
-//    addXbutton->hide();
+    addXbutton->hide();
 }
 
 
@@ -300,7 +302,7 @@ void AdminPage::displaySouvenirTable()
     for (auto& stadium : sm->getStadiums())
     {
         if (    filter == ""
-             || stadium.stadiumName.contains(filter) )
+             || stadium.stadiumName.contains(filter, Qt::CaseInsensitive))
         {
             stadiumLabel = new QLabel(stadium.stadiumName);
             addBtn       = new QPushButton(QIcon(":/Icons/add.png"), "", souvenirTable);
@@ -560,11 +562,11 @@ QDoubleSpinBox*AdminPage::createPriceCell(float price)
     if      (price <  10) prefix += "  ";
     else if (price < 100) prefix += " ";
 
-    box->setPrefix(prefix);
-    box->setValue(price);
-
     box->setRange(0.0, 999.99);
     box->setSingleStep(0.01);
+
+    box->setPrefix(prefix);
+    box->setValue(price);
 
     QObject::connect(box,  &QDoubleSpinBox::editingFinished,
                      this, &AdminPage::updateSouvenirPrice);
@@ -653,6 +655,7 @@ void AdminPage::deleteSouvenir()
 }
 
 
+// When changing stadium name - need to update souvenir table.
 void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
 {
     MLB* mlb { nullptr };
@@ -670,7 +673,8 @@ void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
         sm->map.erase(oldName);
         sm->map.put( { item->text(0), *mlb } );
 
-        sm->updateStadiumNameInDB(oldName, item->text(0));
+        sm->updateStadiumNameInDB(   oldName, item->text(0));
+        sm->updateStadiumForSouvenir(oldName, item->text(0));
     }
     else if (column)
     {
