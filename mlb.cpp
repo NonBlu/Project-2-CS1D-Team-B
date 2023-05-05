@@ -3,7 +3,7 @@
 
 //MLB::MLB(const QString& team)
 //: teamName {team}, stadiumName {}, location {}, seatingCapacity {}, dateOpened {},
-//  feetToCenter {}, metersToCenter {}, league {}, surface {}, typology {}, roofType {}, souvenirs {}  { }
+//  feetToCenter {}, metersToCenter {}, league {}, surface {}, typology {}, roofType {}, souvenirs(7)  { }
 
 
 MLB::MLB(const QString& team)
@@ -229,7 +229,7 @@ QString MLB::getSurface() const
 
  void MLB::addSouvenir(const QString& name, float price)
  {
-    souvenirs.pushBack(Souvenir { name, price });
+    souvenirs.push_back(Souvenir { name, price });
  }
 
 
@@ -265,17 +265,21 @@ void MLB::modifySouvenirName(const QString& oldName, const QString& newName)
 
 void MLB::removeSouvenir(const QString& name)
 {
-    for (auto& souvenir : souvenirs)
+    int count { };
+
+    for (const auto& souvenir : souvenirs)
     {
         if (name == souvenir.name)
         {
-            souvenirs.remove(souvenir);
+            souvenirs.erase(souvenirs.begin() + count);
+         //   souvenirs.remove(souvenir);
 
             break;
         }
+
+        ++count;
     }
 }
-
 
 
 MLB::Souvenir& MLB::Souvenir::operator=(int x)
@@ -288,7 +292,6 @@ MLB::Souvenir& MLB::Souvenir::operator=(int x)
 
     return *this;
 }
-
 
 
 bool MLB::Souvenir::operator==(const Souvenir& rhs)
@@ -306,7 +309,7 @@ bool MLB::Souvenir::operator!=(const Souvenir& rhs)
 
 
 
-Vector<MLB::Souvenir>& MLB::getSouvenirs()
+vector<MLB::Souvenir>& MLB::getSouvenirs()
 {
     return souvenirs;
 }

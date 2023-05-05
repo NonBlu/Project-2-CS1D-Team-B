@@ -8,12 +8,10 @@
 //#include "ui_tourpage.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),       ui        ( new Ui::MainWindow ),
-      sm { new StadiumManager } //adminPage { new AdminPage(sm) }
+    : QMainWindow(parent), ui ( new Ui::MainWindow ),
+      sm { new StadiumManager }, adminPage { new AdminPage(sm) }
 {
     ui->setupUi(this);
-
-    adminPage = new AdminPage(sm);
 
     adminPage->setModal(true);
 

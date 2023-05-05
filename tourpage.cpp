@@ -53,7 +53,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
            ui->souvenirTable->setVisible(false);
            ui->orderLabel->setVisible(true);
 
-           MinTree tree = sm->MST("Marlins Park");
+           MinTree tree  = sm->MST("Marlins Park");
            QString temp1 = ui->dfsTourLabel->text();
            QString temp2 = ui->dfsTourLabel_2->text();
            int counter = 0;

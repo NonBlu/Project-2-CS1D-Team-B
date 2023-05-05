@@ -84,7 +84,7 @@ class Vector
 */
 template <typename T>
 Vector<T>::Vector()
-    : sizeV { 0 }, space { 2 }, elem { new T[2] {0} } {}
+    : sizeV {  }, space { 2 }, elem { new T[ 2 ] { } } { }
 
 
 
@@ -101,7 +101,7 @@ Vector<T>::Vector()
 */
 template <typename T>
 Vector<T>::Vector(int space)
-    : sizeV { 0 }, space { space }, elem { new T[space] {0} } {}
+    : sizeV {  }, space { space }, elem { new T[space] { } } {}
 
 
 
@@ -303,7 +303,7 @@ void Vector<T>::reserve(int capacity)
 {
     T* array;  /**< New array for elements */
 
-    if (capacity > space)
+    if (capacity >= space)
     {
         array = new T[capacity];
 
@@ -312,7 +312,7 @@ void Vector<T>::reserve(int capacity)
             array[index] = std::move(elem[index]);
         }
 
-        delete[] elem;
+  //      delete[] elem;
 
         elem  = array;
         space = capacity;
@@ -334,7 +334,7 @@ void Vector<T>::reserve(int capacity)
 template <typename T>
 void Vector<T>::pushBack(const T& element)
 {
-    if (!sizeV)
+    if (!space)
     {
         reserve(4);
     }

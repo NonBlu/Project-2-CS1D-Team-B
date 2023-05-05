@@ -1,8 +1,9 @@
 #pragma once
 
 #include <QString>
-#include "Containers/Vector.h"
+#include <vector>
 
+using std::vector;
 
 /**
  * @brief Enum class for team Leagus
@@ -55,6 +56,11 @@ class MLB
 
     struct Souvenir
     {
+        Souvenir() : name { }, price { } {}
+
+        Souvenir(const QString& name, float price)
+            : name { name }, price { price } { }
+
         /**
          * @brief overloaded asignment operator.
          * @details for handling being set to 0.
@@ -276,9 +282,7 @@ class MLB
      */
     QString getRoofType() const;
 
-
-    Vector<Souvenir>& getSouvenirs();
-
+    vector<Souvenir>& getSouvenirs();
 
  private:
     QString  teamName;         /**< Name of the teams             */
@@ -293,5 +297,5 @@ class MLB
     Typology typology;         /**< The stadiums typology         */
     RoofType roofType;         /**< The stadiums roof type        */
 
-    Vector<Souvenir> souvenirs;  /**< container of souvenirs  */
+    vector<Souvenir> souvenirs;  /**< container of souvenirs  */
 };

@@ -49,7 +49,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Balls++: The #1 Voted MLB Vacation Planner</string>
+     <string>Balls++ ⚾ ⚾: The #1 Voted MLB Vacation Planner</string>
     </property>
    </widget>
    <widget class="QLabel" name="selectLabel">
