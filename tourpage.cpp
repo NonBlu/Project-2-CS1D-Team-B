@@ -184,7 +184,7 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
 
         for (int i=0; i < tempo; i++)
         {
-            temp.push_back(customTrip[0]);
+            temp.push_back(customTrip[i]);
         }
 
         trip = sm->customTrip(temp);
