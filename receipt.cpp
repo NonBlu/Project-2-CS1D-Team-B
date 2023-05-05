@@ -177,18 +177,6 @@ void Receipt::displayPurchases()
         }
 
     }
-    for (int i = table->rowCount() - 1; i >= 0; i--)
-    {
-        QTableWidgetItem* item = table->item(i, 3); // get the quantity item in the row
-        if (item && item->text().toInt() <= 0)     // check if quantity is zero or less
-        {
-            table->removeRow(i);                   // delete the row
-        }
-    }
-
-//    if(table->item(row, 0)->text().isEmpty()) {
-//        table->setItem(row, 0, stadiumItem  );
-//    }
 
     grandTotal = calculateGrandTotal();
 
