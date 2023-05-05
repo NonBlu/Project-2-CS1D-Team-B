@@ -289,6 +289,14 @@ void StadiumManager::updateStadiumNameInDB(const QString& oldName, const QString
     query->bindValue(1, oldName);
 
     query->exec();
+
+
+    query->prepare("UPDATE Souvenirs SET Stadium = ? WHERE Stadium = ?;");
+
+    query->bindValue(0, newName);
+    query->bindValue(1, oldName);
+
+    query->exec();
 }
 
 
@@ -463,18 +471,6 @@ void StadiumManager::deleteSouvenirFromDB(const QString& stadium, const QString&
 
     query->exec();
 }
-
-
-void StadiumManager::updateStadiumForSouvenir(const QString& oldName, const QString& newName)
-{
-    query->prepare("UPDATE Souvenirs SET Stadium = ? WHERE Stadium = ?;");
-
-    query->bindValue(0, newName);
-    query->bindValue(1, oldName);
-
-    query->exec();
-}
-
 
 
 Map<QString, MLB>& StadiumManager::getStadiums()

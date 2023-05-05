@@ -44,7 +44,6 @@ class StadiumManager
     void modSouvenirNameInDB(const QString& stadium, const QString& oldName, const QString& newName);
     void modSouvenirPriceInDB(const QString& stadium, const QString& souvenir, float price);
     void deleteSouvenirFromDB(const QString& stadium, const QString& souvenir);
-    void updateStadiumForSouvenir(const QString& oldName, const QString& newName);
 
     void updateStadiumNameInDB(const QString& oldName, const QString& newName);
     void updateTeamNameInDB(const QString& stadium, const QString& teamName);

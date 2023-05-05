@@ -18,7 +18,7 @@ AdminPage::AdminPage(StadiumManager* sm, QWidget *parent)
     this->setFixedWidth(690);
 
     filterLine->setGeometry(20, 15, 150, 25);
-    filterLine->setPlaceholderText("🔍  Search...");
+    filterLine->setPlaceholderText("🔍  Search... ⚾");
 
     QObject::connect(filterLine, &QLineEdit::editingFinished,
                      this,       &AdminPage::filterHandler   );
@@ -70,9 +70,18 @@ AdminPage::~AdminPage()
 {
     delete addXbutton;
     delete filterLine;
-//    delete souvenirTable;
-//    delete MLBTree;
-//    delete tabs;
+
+    souvenirTable->disconnect();
+    souvenirTable->model()->removeRows(0, souvenirTable->rowCount());
+    delete souvenirTable;
+
+    MLBTree->disconnect();
+    MLBTree->clear();
+    delete MLBTree;
+
+    tabs->disconnect();
+    tabs->clear();
+    delete tabs;
 }
 
 
@@ -655,7 +664,6 @@ void AdminPage::deleteSouvenir()
 }
 
 
-// When changing stadium name - need to update souvenir table.
 void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
 {
     MLB* mlb { nullptr };
@@ -666,15 +674,16 @@ void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
 
         mlb     = sm->getTeam(item->child(0)->text(1));
         oldName = mlb->getStadiumName();
-        mlb->setStadiumName(item->text(0));
 
+        mlb->setStadiumName(item->text(0));
         sm->graph.updateVertexValue(oldName, item->text(0));
 
         sm->map.erase(oldName);
         sm->map.put( { item->text(0), *mlb } );
 
-        sm->updateStadiumNameInDB(   oldName, item->text(0));
-        sm->updateStadiumForSouvenir(oldName, item->text(0));
+        sm->updateStadiumNameInDB(oldName, item->text(0));
+
+        displaySouvenirTable();
     }
     else if (column)
     {
@@ -697,7 +706,7 @@ void AdminPage::updateMLBInfo(QTreeWidgetItem* item, int column)
 }
 
 
-// Add better error handling
+
 void AdminPage::updateSeating(int capacity)
 {
     QWidget* widget  { qobject_cast<QWidget*>(sender())                  };

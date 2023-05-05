@@ -225,6 +225,8 @@ void MapBase<Key, Value>::_erase(const Key& key, unsigned int h1, unsigned int h
     if (key == cells[i].entry.key)
     {
         cells[i].status = Status::Available;
+
+        --count;
     }
 }
 
@@ -582,7 +584,7 @@ unsigned int Map<QString, Value>::hash(const QString& key)
 {
     unsigned int hash { };
 
-    for (int i {}; i < key.length(); ++i)
+    for (unsigned int i {}; i < key.length(); ++i)
     {
         hash  = (hash << 5) | (hash >> 27);
         hash += static_cast<unsigned int>(key[i].unicode());
