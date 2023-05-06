@@ -77,27 +77,38 @@ void DynamicTable::on_filterDropdown_currentTextChanged(const QString &arg1)
     for(int i = 0; i < ui->infoTable->rowCount(); i++) {
         ui->infoTable->setRowHidden(i, false);
     }
-    ui->bottomLabel->hide();    // Hiding bottom label
 
     QString currentText = ui->filterDropdown->currentText();
 
     if(currentText == "American League") {
+        int teamNum = 0;
         for(int i = 0; i < ui->infoTable->rowCount(); i++) {
             MLB *stadium = sm->getStadium(ui->infoTable->item(i, 1)->text());
 
             if(stadium->getLeague() != "American") {
                 ui->infoTable->setRowHidden(i, true);
             }
+            else {
+                teamNum += 1;
+            }
         }
+        ui->bottomLabel->show();
+        ui->bottomLabel->setText("Total number of teams: " + QString::number(teamNum));
     }
     else if(currentText == "National League") {
+        int teamNum = 0;
         for(int i = 0; i < ui->infoTable->rowCount(); i++) {
             MLB *stadium = sm->getStadium(ui->infoTable->item(i, 1)->text());
 
             if(stadium->getLeague() != "National") {
                 ui->infoTable->setRowHidden(i, true);
             }
+            else {
+                teamNum += 1;
+            }
         }
+        ui->bottomLabel->show();
+        ui->bottomLabel->setText("Total number of teams: " + QString::number(teamNum));
     }
     else if(currentText == "Open Roof Type") {
         int teamNum = 0;
@@ -116,6 +127,7 @@ void DynamicTable::on_filterDropdown_currentTextChanged(const QString &arg1)
 
     }
     else {
+        ui->bottomLabel->hide();    // Hiding bottom label
         return; // For condition "N/A"
     }
 
