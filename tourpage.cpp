@@ -176,6 +176,9 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
         {
             currentTrip.push_back(stadium->getStadiumName());
         }
+        QString temp2 = "Total Distance Traveled: ";
+        temp2.append(QString::number(trip.distanceTraveled));
+        ui->totalDistanceLabel->setText(temp2);
         nextStadium();
     }
     else if (tripType == "Most Efficient Tour")
@@ -193,6 +196,9 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
         {
             currentTrip.push_back(stadium->getStadiumName());
         }
+        QString temp2 = "Total Distance Traveled: ";
+        temp2.append(QString::number(trip.distanceTraveled));
+        ui->totalDistanceLabel->setText(temp2);
         nextStadium();
     }
 
@@ -215,6 +221,7 @@ void TourPage::nextStadium()
     ui->locationLabel->setText(currentTrip[0]);
     displaySouvenirs();
     currentTrip.erase(currentTrip.begin());
+
 }
 
 void TourPage::displaySouvenirs()
