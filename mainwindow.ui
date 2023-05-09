@@ -6,215 +6,400 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>439</height>
+    <width>600</width>
+    <height>350</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>350</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI Black</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Home</string>
   </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+    </font>
+   </property>
    <widget class="QPushButton" name="adminButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>130</y>
-      <width>131</width>
-      <height>51</height>
+      <x>520</x>
+      <y>10</y>
+      <width>71</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <pointsize>-1</pointsize>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+    </property>
     <property name="text">
-     <string>Admin Settings</string>
+     <string>Admin</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1000</width>
-      <height>61</height>
+      <x>74</x>
+      <y>2</y>
+      <width>421</width>
+      <height>241</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <bold>true</bold>
-      <underline>false</underline>
-     </font>
-    </property>
-    <property name="text">
-     <string>Balls++ ⚾ ⚾: The #1 Voted MLB Vacation Planner</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="selectLabel">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>60</y>
-      <width>261</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <underline>true</underline>
-     </font>
-    </property>
-    <property name="text">
-     <string>Select one of the following tours to perform!</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="choiceButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Visit Stadiums of 
-Your Choice</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="horizontalSpacing">
+      <number>4</number>
+     </property>
+     <item row="1" column="3">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="mstButton">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>Minimum Spanning
+ Tree Tour</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="visitAllButton">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>Visit All
+Stadiums</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="choiceButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+	  color: white;
+
+}</string>
+       </property>
+       <property name="text">
+        <string>Visit Stadiums of 
+ Your Choice</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <spacer name="verticalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="2" colspan="2">
+      <widget class="QPushButton" name="bfsButton">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>Breadth First
+Search</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="3">
+      <spacer name="verticalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="4" column="0">
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="0">
+      <spacer name="verticalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="0">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0" colspan="4">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>26</pointsize>
+         <bold>true</bold>
+         <underline>false</underline>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+    color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>⚾ Balls++⚾</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="2">
+      <widget class="QPushButton" name="dfsButton">
+       <property name="font">
+        <font>
+         <pointsize>-1</pointsize>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+     background-color: rgba(26,29,60,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+       </property>
+       <property name="text">
+        <string>Depth First
+Search</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QPushButton" name="viewInfoButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>60</y>
-      <width>131</width>
+      <x>10</x>
+      <y>290</y>
+      <width>81</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <pointsize>-1</pointsize>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+     background-color: rgba(24,176,145,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+    </property>
     <property name="text">
-     <string>View Individual
+     <string>View 
  Teams</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="mstButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>140</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Minimum Spanning
- Tree Tour</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="dfsButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>200</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Depth First
-Search</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bfsButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>260</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Breadth First
-Search</string>
     </property>
    </widget>
    <widget class="QPushButton" name="dynamicTableButton">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>190</y>
-      <width>131</width>
+      <x>507</x>
+      <y>289</y>
+      <width>81</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <pointsize>-1</pointsize>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+     background-color: rgba(24,176,145,150);
+     border-style: outset;
+     border-width: 2px;
+     border-radius: 10px;
+     font: bold 14px;
+     padding: 6px;
+color: white;
+}</string>
+    </property>
     <property name="text">
-     <string>Dynamic Information
+     <string>Dynamic 
 Table</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="visitAllButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>320</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Visit All
-Stadiums</string>
-    </property>
-   </widget>
+   <zorder>gridLayoutWidget</zorder>
+   <zorder>adminButton</zorder>
+   <zorder>viewInfoButton</zorder>
+   <zorder>dynamicTableButton</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
