@@ -11,7 +11,7 @@ class SelectYourTour : public QDialog
     Q_OBJECT
 
 public:
-    explicit SelectYourTour(StadiumManager* sm, QWidget *parent = nullptr);
+    explicit SelectYourTour(StadiumManager* sm, bool all, QWidget *parent = nullptr);
 
     ~SelectYourTour();
 
@@ -26,6 +26,8 @@ private slots:
     void on_specifiedButton_clicked();
 
     void on_efficientButton_clicked();
+
+    void on_startingButton_clicked();
 
 private:
     Ui::SelectYourTour* ui;

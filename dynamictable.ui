@@ -22,6 +22,9 @@
      <height>261</height>
     </rect>
    </property>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <widget class="QComboBox" name="filterDropdown">
    <property name="geometry">

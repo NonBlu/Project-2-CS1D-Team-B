@@ -13,9 +13,17 @@ InformationView::InformationView(StadiumManager* sm, QWidget *parent) :
     ui->stadiumInfoTable->setHorizontalHeaderLabels(headers);
     ui->stadiumInfoTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    for(auto& mlb : sm->map) {
-        QString teamName = mlb.getTeamName();
-        ui->teamDropDown->addItem(teamName);
+    vector<QString> temp;
+    for(auto& mlb : sm->map)
+    {
+        temp.push_back(mlb.getTeamName());
+    }
+
+    sort(temp.begin(), temp.end());
+
+    for(int i = 0; i < temp.size(); i++)
+    {
+        ui->teamDropDown->addItem(temp[i]);
     }
 }
 
