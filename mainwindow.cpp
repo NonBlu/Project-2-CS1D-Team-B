@@ -5,6 +5,7 @@
 #include "tourpage.h"
 #include "selectyourtour.h"
 #include "dynamictable.h"
+#include "QApplication"
 //#include "ui_tourpage.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,8 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
       sm { new StadiumManager }, adminPage { new AdminPage(sm) }
 {
     ui->setupUi(this);
-
+    QPixmap bkgnd(":/Icons/HomeScreen2.png");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, bkgnd);
+    this->setPalette(palette);
     adminPage->setModal(true);
+
+    setStyleSheet("QLineEdit#nameEdit { background-color: yellow }");
 
     //---------------------------------------------------------
 }

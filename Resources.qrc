@@ -1,11 +1,12 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-<qresource>
-     <file>Icons/locked.png</file>
-     <file>Icons/unlocked.png</file>
-     <file>Icons/delete.png</file>
-     <file>Icons/add.png</file>
-     <file>Icons/stadium.png</file>
-     <file>Icons/present.png</file>
- </qresource>
- </RCC>
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/locked.png</file>
+        <file>Icons/unlocked.png</file>
+        <file>Icons/delete.png</file>
+        <file>Icons/add.png</file>
+        <file>Icons/stadium.png</file>
+        <file>Icons/present.png</file>
+        <file>Icons/HomeScreen.png</file>
+        <file>Icons/HomeScreen2.png</file>
+    </qresource>
+</RCC>
