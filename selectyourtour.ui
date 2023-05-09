@@ -105,6 +105,19 @@ Order</string>
 Like to Perform The Tour?</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="startingButton">
+   <property name="geometry">
+    <rect>
+     <x>55</x>
+     <y>70</y>
+     <width>81</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Team</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

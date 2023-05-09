@@ -88,8 +88,8 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
            temp.append(" miles");
            ui->totalDistanceLabel->setText(temp);
        }
-       else if (tripType == "Depth First Search")
-       {
+    else if (tripType == "Depth First Search")
+    {
         ui->nextButton->setVisible(false);
         ui->locationLabel->setVisible(false);
         ui->recieptButton->setVisible(false);
@@ -125,9 +125,24 @@ TourPage::TourPage(QString tripType, std::vector<QString>& stadiums, StadiumMana
         temp.append(QString::number(trip.distanceTraveled));
         temp.append(" miles");
         ui->totalDistanceLabel->setText(temp);
-        }
-        else if (tripType == "Breadth First Search")
+    }
+    else if (tripType == "Visit All Stadiums")
+    {
+        qDebug() << customTrip[0];
+        QString temp = customTrip[0];
+        qDebug() << temp;
+        trip = sm->DFS(temp);
+        for (auto& stadium : trip.path)
         {
+            currentTrip.push_back(stadium->getStadiumName());
+        }
+        QString temp2 = "Total Distance Traveled: ";
+        temp2.append(QString::number(trip.distanceTraveled));
+        ui->totalDistanceLabel->setText(temp2);
+        nextStadium();
+    }
+    else if (tripType == "Breadth First Search")
+    {
         ui->nextButton->setVisible(false);
         ui->locationLabel->setVisible(false);
         ui->recieptButton->setVisible(false);

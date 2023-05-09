@@ -64,7 +64,7 @@ void MainWindow::on_viewInfoButton_clicked()
 
 void MainWindow::on_choiceButton_clicked()
 {
-    SelectYourTour selectTour(sm);
+    SelectYourTour selectTour(sm, false);
     selectTour.setModal(true);
     selectTour.exec();
 }
@@ -106,3 +106,10 @@ void MainWindow::on_dynamicTableButton_clicked()
     dynTable.exec();
 }
 
+
+void MainWindow::on_visitAllButton_clicked()
+{
+    SelectYourTour selectTour(sm, true);
+    selectTour.setModal(true);
+    selectTour.exec();
+}

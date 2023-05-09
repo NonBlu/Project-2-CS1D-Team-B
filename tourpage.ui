@@ -52,10 +52,10 @@
   <widget class="QPushButton" name="nextButton">
    <property name="geometry">
     <rect>
-     <x>405</x>
-     <y>72</y>
-     <width>80</width>
-     <height>31</height>
+     <x>394</x>
+     <y>62</y>
+     <width>91</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
@@ -210,19 +210,19 @@ Stadium</string>
     <rect>
      <x>6</x>
      <y>73</y>
-     <width>479</width>
+     <width>291</width>
      <height>16</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-     <width>479</width>
+     <width>0</width>
      <height>16</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>479</width>
+     <width>1000</width>
      <height>16</height>
     </size>
    </property>

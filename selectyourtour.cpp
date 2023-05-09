@@ -2,21 +2,43 @@
 #include "ui_selectyourtour.h"
 #include <QMessageBox>
 #include "tourpage.h"
-
-SelectYourTour::SelectYourTour(StadiumManager* sm, QWidget *parent) :
+#include "mlb.h"
+#include "stadiummanager.h"
+SelectYourTour::SelectYourTour(StadiumManager* sm,bool all, QWidget *parent) :
     QDialog(parent), ui(new Ui::SelectYourTour), sm { sm }
 {
+
     ui->setupUi(this);
     ui->efficientButton->setVisible(false);
     ui->specifiedButton->setVisible(false);
     ui->orderLabel->setVisible(false);
 
+    vector<QString> temp;
     for(auto& mlb : sm->map)
     {
-        ui->nameDropdown->addItem(mlb.getStadiumName());
+        temp.push_back(mlb.getTeamName());
     }
 
-    ui->selectLabel->setText("Select the 1st Stadium\nYou Would Like to Visit:");
+    sort(temp.begin(), temp.end());
+
+    for(int i = 0; i < temp.size(); i++)
+    {
+        ui->nameDropdown->addItem(temp[i]);
+    }
+
+    if(!all)
+    {
+        ui->selectLabel->setText("Select the 1st Team"
+                                 "\nYou Would Like to Visit:");
+        ui->startingButton->setVisible(false);
+    }
+    else
+    {
+        ui->selectLabel->setText("Select Your"
+                                 " Starting \n          Location");
+        ui->nextButton->setVisible(false);
+        ui->doneButton->setVisible(false);
+    }
 }
 
 SelectYourTour::~SelectYourTour()
@@ -26,7 +48,8 @@ SelectYourTour::~SelectYourTour()
 
 void SelectYourTour::on_nextButton_clicked()
 {
-    QString temp = ui->nameDropdown->currentText();
+    MLB* tempMLB = sm->getTeam(ui->nameDropdown->currentText());
+    QString temp = tempMLB->getStadiumName();
     if (temp == "")
     {
         QMessageBox::information(this, "Error!", "There are no more stadiums to select. Please select \"Done\".");
@@ -95,6 +118,20 @@ void SelectYourTour::on_efficientButton_clicked()
     vector<QString> temp = customTrip;
 
     TourPage tourPage("Most Efficient Tour", temp, sm);
+
+    tourPage.setModal(true);
+
+    tourPage.exec();
+}
+
+
+void SelectYourTour::on_startingButton_clicked()
+{
+    MLB* tempMLB = sm->getTeam(ui->nameDropdown->currentText());
+    vector<QString> temp;
+    temp.push_back(tempMLB->getStadiumName());
+
+    TourPage tourPage("Visit All Stadiums", temp, sm);
 
     tourPage.setModal(true);
 

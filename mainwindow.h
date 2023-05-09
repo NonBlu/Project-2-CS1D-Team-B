@@ -35,8 +35,11 @@ private slots:
 
     void on_dynamicTableButton_clicked();
 
+    void on_visitAllButton_clicked();
+
 signals:
     void tripTypeChanged(QString value);
+    void allMethod();
 private:
     Ui::MainWindow* ui;
     StadiumManager* sm;
