@@ -22,6 +22,9 @@ DynamicTable::DynamicTable(StadiumManager* sm, QWidget *parent) :
     // setting column count to 4
     ui->infoTable->setColumnCount(5);
 
+    // making it so that end-user cannot edit
+    ui->infoTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     // setting headers
     QStringList infoHeaders = { "Team Name", "Stadium Name", "Park Typology", "Date Opened", "Seating Capacity" };
     ui->infoTable->setHorizontalHeaderLabels(infoHeaders);
@@ -170,6 +173,7 @@ void DynamicTable::on_sortDropdown_currentTextChanged(const QString &arg1)
         ui->bottomLabel->show();
     }
     else {
+        ui->bottomLabel->hide();
         return; // For condition "N/A"
     }
 }
