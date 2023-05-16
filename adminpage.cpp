@@ -16,6 +16,7 @@ AdminPage::AdminPage(StadiumManager* sm, QWidget *parent)
 {
     this->setFixedHeight(800);
     this->setFixedWidth(690);
+    MLBTree->setFixedHeight(575);
 
     filterLine->setGeometry(20, 15, 150, 25);
     filterLine->setPlaceholderText("🔍  Search... ⚾");
