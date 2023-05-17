@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>495</width>
+    <width>591</width>
     <height>368</height>
    </rect>
   </property>
@@ -36,7 +36,7 @@
     <rect>
      <x>260</x>
      <y>120</y>
-     <width>221</width>
+     <width>311</width>
      <height>241</height>
     </rect>
    </property>
@@ -52,8 +52,8 @@
   <widget class="QPushButton" name="nextButton">
    <property name="geometry">
     <rect>
-     <x>394</x>
-     <y>62</y>
+     <x>480</x>
+     <y>60</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -68,7 +68,7 @@ Stadium</string>
     <rect>
      <x>6</x>
      <y>342</y>
-     <width>481</width>
+     <width>561</width>
      <height>18</height>
     </rect>
    </property>
@@ -117,7 +117,7 @@ Stadium</string>
     <rect>
      <x>6</x>
      <y>107</y>
-     <width>481</width>
+     <width>561</width>
      <height>231</height>
     </rect>
    </property>
@@ -158,7 +158,7 @@ Stadium</string>
     <rect>
      <x>6</x>
      <y>30</y>
-     <width>79</width>
+     <width>331</width>
      <height>16</height>
     </rect>
    </property>
